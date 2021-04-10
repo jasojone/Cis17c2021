@@ -46,8 +46,8 @@ int main(int argc, char** argv) {
     prntLst(myList->head);
     
         //Printing after insertion
-    cout << "\nHere is the linked list with a random element inserted into the list..."
-            "in order from the least to greatest" << endl;
+    cout << "\nHere is the linked list with a random element inserted into the list "
+        "in order from the least to greatest..." << endl;
     myList->insertNode();
     prntLst(myList->head);
 
@@ -61,10 +61,17 @@ int main(int argc, char** argv) {
     myList->popBack();
     prntLst(myList->head);
     
-       //Printing after insertion
-    cout << "\nHere is the linked list with a random element deleted from list..." <<endl;
-    myList->deleteLink(rand() % 5 + 1);
+    //Printing after insertion
+    cout << "\nHere is the linked list with an element deleted from list... "<< endl;
+    myList->deleteLink(3);
     prntLst(myList->head);
+    
+    //Accessing a link and prioritizing it to the front
+    cout << "\nHere is the linked list with an element accessed from list... "<< endl;
+    myList->accessLink(4);
+    prntLst(myList->head);
+    
+    
     
     //Delete all the allocated memory
     destroy(myList->head);

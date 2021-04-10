@@ -17,7 +17,7 @@
 using namespace std;
 
 template <class T>
-class SimpleVector
+class List
 {
 private:
    Link<T> *head;          // To point to the allocated array
@@ -28,21 +28,25 @@ private:
 
 public:
    // Default constructor
-   SimpleVector()
+   List()
       { head = nullptr; arraySize = 0;}
       
 //   // Constructor declaration
-   SimpleVector(int size)
+   List(int size)
    {
+       head = nullptr;
        arraySize = size;
-       head = new Link<T>[size];
+       for (int i = 0; i < size; i++)
+       {
+           push_back(static_cast<T>(rand()%26+65));
+       }
    }
 //   
 //   // Copy constructor declaration
 //   SimpleVector(const SimpleVector &);
    
    // Destructor declaration
-   ~SimpleVector();
+   ~List();
    
    // Accessor to return the array size
    int size() const
@@ -103,8 +107,8 @@ void SimpleVector<T>::push_back(T val)
     }
 
 //***********************************************************
-// 
-//
+//                                                          *
+//                                                          *
 //***********************************************************
 
 template <class T>
@@ -113,9 +117,9 @@ void SimpleVector<T>::pop_back()
     if (head != nullptr)
     {
         //traverses the list to find the last node to delete 
-        for (Link<T>* prevLink = head; prevLink != NULL; prevLink = prevLink->lnkNext)
+        for (Link<T>* prevLink = head; prevLink != nullptr; prevLink = prevLink->lnkNext)
         {
-            if (prevLink->lnkNext->lnkNext == NULL)
+            if (prevLink->lnkNext->lnkNext == nullptr)
             {
                 //once the node is found replace the nullptr on the new last node
                 //and delete the victim

@@ -26,8 +26,8 @@ int main(int argc, char** argv)
     //Declare Variables
     unsigned char size=50;
     unsigned int nPush=5; 
-    SimpleVector<unsigned char> sv();
-    
+    //SimpleVector<unsigned char> sv();
+    Link<int> List;
 //    //Fill the Vector
 //    fillVec(sv);
 //    
@@ -39,7 +39,7 @@ int main(int argc, char** argv)
     for(int i=0;i<nPush;i++)
     {
         //sv.push_back(rand()%26+65);
-        sv->push_back('a');
+       SimpleVector->push_back(rand()%26+65);
     }
     //Print the Vector
     cout << "The Vector after the push back:\n";
@@ -81,14 +81,14 @@ int main(int argc, char** argv)
     return 0;
 }
 
-//void prntVec(SimpleVector<unsigned char> &sv,int perLine){
-//    cout<<endl;
-//    for(int i=0;i<sv.size();i++){
-//        cout<<sv[i]<<" ";
-//        if(i%perLine==(perLine-1))cout<<endl;
-//    }
-//    cout<<endl;
-//}
+void prntVec(Link<int> &sv,int perLine){
+    cout<<endl;
+    for(int i=0;i<sv.size();i++){
+        cout<<sv[i]<<" ";
+        if(i%perLine==(perLine-1))cout<<endl;
+    }
+    cout<<endl;
+}
 //
 //void fillVec(SimpleVector<unsigned char> &sv){
 //    for(int i=0;i<sv.size();i++){
