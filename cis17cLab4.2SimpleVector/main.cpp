@@ -39,7 +39,7 @@ int main(int argc, char** argv)
     for(int i=0;i<nPush;i++)
     {
         //sv.push_back(rand()%26+65);
-       SimpleVector->push_back(rand()%26+65);
+       push_back(rand()%26+65);
     }
     //Print the Vector
     cout << "The Vector after the push back:\n";
