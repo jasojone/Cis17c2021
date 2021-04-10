@@ -13,13 +13,14 @@
 #include <iostream>
 #include <new>       // Needed for bad_alloc exception
 #include <cstdlib>   // Needed for the exit function
+#include "Link.h"
 using namespace std;
 
 template <class T>
 class SimpleVector
 {
 private:
-   T *aptr;          // To point to the allocated array
+   Link<T> *head;          // To point to the allocated array
    int arraySize;    // Number of elements in the array
    int arrayCapacity; //crate the capacity 
    void memError();  // Handles memory allocation errors
@@ -28,13 +29,17 @@ private:
 public:
    // Default constructor
    SimpleVector()
-      { aptr = 0; arraySize = 0;}
+      { head = nullptr; arraySize = 0;}
       
-   // Constructor declaration
-   SimpleVector(int);
-   
-   // Copy constructor declaration
-   SimpleVector(const SimpleVector &);
+//   // Constructor declaration
+   SimpleVector(int size)
+   {
+       arraySize = size;
+       head = new Link<T>[size];
+   }
+//   
+//   // Copy constructor declaration
+//   SimpleVector(const SimpleVector &);
    
    // Destructor declaration
    ~SimpleVector();
@@ -47,10 +52,10 @@ public:
    int getCount() const {return this->arrayCapacity;}
 
    // Accessor to return a specific element
-   T getElementAt(int position);
+   //T getElementAt(int position);
 
    // Overloaded [] operator declaration
-   T &operator[](const int &);
+   //T &operator[](const int &);
    
    // Push a value onto the end of the array
    void push_back(T);
@@ -67,29 +72,35 @@ public:
 // 
 //
 //***********************************************************
+template <class T>
+Link<T>* create(T num)    //Create a Link with Data
+{
+    Link<T>* newLink = new Link<T>;
+    newLink->data = num;
+    newLink->lnkNext = nullptr;
+
+    return newLink;
+}
 
 template <class T>
 void SimpleVector<T>::push_back(T val)
-{
-    
-    //Create an array 1 size larger than the old array
-    T *tmpV = new T[arraySize+1];
-    
-    //Copy the old array in to the new
-    for(int i = 0; i <= arraySize; i++)
-        *(tmpV + i) = *(aptr + i);
-    
-    //Place the new value at the end of the new array
-    *(tmpV + arraySize+1) = val;
+    {
+        Link<T>* newLink = create(val);
+        cout << "Pushing a " << newLink->data << " to the back of list..." << endl;
+        if (head == nullptr)
+        {            
+            head = newLink;
+            return;
+        }
+        //temp node 
+        Link<T>* linkPtr = head;
+        //traversing the list 
+        for (; linkPtr->lnkNext != nullptr; linkPtr = linkPtr->lnkNext);
+        //placing the node at the end
+        linkPtr->lnkNext = newLink;
         
-    //Delete the old array
-    delete[] aptr;
-    
-    //Increment the array size by 1 and set the old pointer to 
-    //  the new array pointer
-    arraySize++;
-    aptr = tmpV;
-}
+        arraySize++;
+    }
 
 //***********************************************************
 // 
@@ -99,20 +110,24 @@ void SimpleVector<T>::push_back(T val)
 template <class T>
 void SimpleVector<T>::pop_back()
 {
-    //Create an array 1 size smaller than the old array
-    T *tmpV = new T[arraySize-1];
-    
-    //Copy the old array in to the new
-    for(int i = 0; i < arraySize-1; i++)
-        *(tmpV + i) = *(aptr + i);
-      
-    //Delete the old array
-    delete[] aptr;
-    
-    //Decrement the array size by 1 and set the old pointer to 
-    //  the new array pointer
-    arraySize--;
-    aptr = tmpV;      
+    if (head != nullptr)
+    {
+        //traverses the list to find the last node to delete 
+        for (Link<T>* prevLink = head; prevLink != NULL; prevLink = prevLink->lnkNext)
+        {
+            if (prevLink->lnkNext->lnkNext == NULL)
+            {
+                //once the node is found replace the nullptr on the new last node
+                //and delete the victim
+                Link<T>* victim = prevLink->lnkNext;
+                prevLink->lnkNext = nullptr;
+                victim->lnkNext = nullptr;
+                delete victim;
+            }
+        }  
+
+        arraySize--;
+    }
 }
 
 //***********************************************************
@@ -123,25 +138,12 @@ void SimpleVector<T>::pop_back()
 template <class T>
 void SimpleVector<T>::push_front(T val)
 {
-    //Create an array 1 size larger than the old array
-    T *tmpV = new T[arraySize+1];
-    
-    //Copy the old array in to the new
-    for(int i = 1; i <= arraySize; i++)
-        *(tmpV + i) = *(aptr + i - 1);
-    
-    //Place the new value at the front of the new array
-    tmpV[0] = val;
-    
-    //Delete the old array
-    delete[] aptr;
-    
-    //Increment the array size by 1 and set the old pointer to 
-    //  the new array pointer
+    Link<T>* newLink = create(val);
+    cout << "Pushing a " << newLink->data << " to the front of list..." << endl;
+    newLink->lnkNext = head;
+    head = newLink;
     arraySize++;
-    aptr = tmpV; 
 }
-
 //***********************************************************
 // 
 //
@@ -150,20 +152,13 @@ void SimpleVector<T>::push_front(T val)
 template <class T>
 void SimpleVector<T>::pop_front()
 {
-    //Create an array 1 size larger than the old array
-    T *tmpV = new T[arraySize-1];
-    
-    //Copy the old array in to the new
-    for(int i = 0; i <= arraySize; i++)
-        tmpV[i] = *(aptr + i); 
-    
-    //Delete the old array
-    delete[] aptr;
-    
-    //Increment the array size by 1 and set the old pointer to 
-    //  the new array pointer
-    arraySize--;
-    aptr = tmpV;     
+    if (head != nullptr)
+    {
+        Link<T>* victim = head;
+        head = head->lnkNext;
+        delete victim;
+        arraySize--;
+    }
 }
 
 //***********************************************************
@@ -171,44 +166,44 @@ void SimpleVector<T>::pop_front()
 // array and allocates memory for it.                       *
 //***********************************************************
 
-template <class T>
-SimpleVector<T>::SimpleVector(int s)
-{
-   arraySize = s;
-   // Allocate memory for the array.
-   try
-   {
-      aptr = new T [s];
-   }
-   catch (bad_alloc)
-   {
-      memError();
-   }
-
-   // Initialize the array.
-   for (int i = 0; i < arraySize; i++)
-      *(aptr + i) = 0;
-}
+//template <class T>
+//SimpleVector<T>::SimpleVector(int s)
+//{
+//   arraySize = s;
+//   // Allocate memory for the array.
+//   try
+//   {
+//      aptr = new T [s];
+//   }
+//   catch (bad_alloc)
+//   {
+//      memError();
+//   }
+//
+//   // Initialize the array.
+//   for (int i = 0; i < arraySize; i++)
+//      *(aptr + i) = 0;
+//}
 
 //*******************************************
 // Copy Constructor for SimpleVector class. *
 //*******************************************
 
-template <class T>
-SimpleVector<T>::SimpleVector(const SimpleVector &obj)
-{
-   // Copy the array size.
-   arraySize = obj.arraySize;
-   
-   // Allocate memory for the array.
-   aptr = new T [arraySize];
-   if (aptr == 0)
-      memError();
-      
-   // Copy the elements of obj's array.
-   for(int i = 0; i < arraySize; i++)
-      *(aptr + i) = *(obj.aptr + i);
-}
+//template <class T>
+//SimpleVector<T>::SimpleVector(const SimpleVector &obj)
+//{
+//   // Copy the array size.
+//   arraySize = obj.arraySize;
+//   
+//   // Allocate memory for the array.
+//   aptr = new T [arraySize];
+//   if (aptr == 0)
+//      memError();
+//      
+//   // Copy the elements of obj's array.
+//   for(int i = 0; i < arraySize; i++)
+//      *(aptr + i) = *(obj.aptr + i);
+//}
 
 //**************************************
 // Destructor for SimpleVector class.  *
@@ -218,7 +213,7 @@ template <class T>
 SimpleVector<T>::~SimpleVector()
 {
    if (arraySize > 0)
-      delete [] aptr;
+       delete head;
 }
 
 //*******************************************************
@@ -251,13 +246,13 @@ void SimpleVector<T>::subError()
 // cript in the array.                                  *
 //*******************************************************
 
-template <class T>
-T SimpleVector<T>::getElementAt(int sub)
-{
-   if (sub < 0 || sub >= arraySize)
-      subError();
-   return aptr[sub];
-}
+//template <class T>
+//T SimpleVector<T>::getElementAt(int sub)
+//{
+//   if (sub < 0 || sub >= arraySize)
+//      subError();
+//   return aptr[sub];
+//}
 
 //*******************************************************
 // Overloaded [] operator. The argument is a subscript. *
@@ -265,11 +260,12 @@ T SimpleVector<T>::getElementAt(int sub)
 // in the array indexed by the subscript.               *
 //*******************************************************
 
-template <class T>
-T &SimpleVector<T>::operator[](const int &sub)
-{
-   if (sub < 0 || sub >= arraySize)
-      subError();
-   return aptr[sub];
-}
+//template <class T>
+//T &SimpleVector<T>::operator[](const int &sub)
+//{
+//   if (sub < 0 || sub >= arraySize)
+//      subError();
+//   
+//   return head[sub];
+//}
 #endif

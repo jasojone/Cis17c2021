@@ -7,12 +7,12 @@
 #ifndef LINK_H
 #define LINK_H
 
-template <typename T>
 struct Link
 {
-    T data;     //Some type of data
+    int data;     //Some type of data
+    int size;      //
     Link *lnkNext; //Next Link in the chain
-    
+    Link *lnkPrv; //pointer to the previous link
 };
 
 #endif /* LINK_H */

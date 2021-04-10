@@ -26,19 +26,20 @@ int main(int argc, char** argv)
     //Declare Variables
     unsigned char size=50;
     unsigned int nPush=5; 
-    SimpleVector<unsigned char> sv(size);
+    SimpleVector<unsigned char> sv();
     
-    //Fill the Vector
-    fillVec(sv);
-    
-    //Print the Vector
-    cout << "The Vector before the alterations:\n";
-    prntVec(sv,10);
+//    //Fill the Vector
+//    fillVec(sv);
+//    
+//    //Print the Vector
+//    cout << "The Vector before the alterations:\n";
+//    prntVec(sv,10);
     
     //Push a random value into the array
     for(int i=0;i<nPush;i++)
     {
-        sv.push_back(rand()%26+65);
+        //sv.push_back(rand()%26+65);
+        sv->push_back('a');
     }
     //Print the Vector
     cout << "The Vector after the push back:\n";
@@ -80,19 +81,19 @@ int main(int argc, char** argv)
     return 0;
 }
 
-void prntVec(SimpleVector<unsigned char> &sv,int perLine){
-    cout<<endl;
-    for(int i=0;i<sv.size();i++){
-        cout<<sv[i]<<" ";
-        if(i%perLine==(perLine-1))cout<<endl;
-    }
-    cout<<endl;
-}
-
-void fillVec(SimpleVector<unsigned char> &sv){
-    for(int i=0;i<sv.size();i++){
-        sv[i]=rand()%26+65;
-    }
-}
+//void prntVec(SimpleVector<unsigned char> &sv,int perLine){
+//    cout<<endl;
+//    for(int i=0;i<sv.size();i++){
+//        cout<<sv[i]<<" ";
+//        if(i%perLine==(perLine-1))cout<<endl;
+//    }
+//    cout<<endl;
+//}
+//
+//void fillVec(SimpleVector<unsigned char> &sv){
+//    for(int i=0;i<sv.size();i++){
+//        sv[i]=rand()%26+65;
+//    }
+//}
 
 

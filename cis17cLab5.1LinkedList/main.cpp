@@ -7,6 +7,7 @@
  //System Libraries
 #include <iostream>    //Input/Output Library
 #include <cstdlib>     //NULL pointer
+#include <time.h>
 using namespace std;   //Library Name-space
 
 //User Libraries
@@ -25,7 +26,7 @@ void destroy(Link*);
 //Execution Begins Here
 int main(int argc, char** argv) {
     //Set the Random number seed
-
+    srand (time(NULL));
     //Declare variables
     //Link* lnk1 = fillLst(5);
     List* myList = new List(fillLst(5));
@@ -35,13 +36,19 @@ int main(int argc, char** argv) {
     prntLst(myList->head);
 
     //Printing after the push front
-    cout << "\nHere is the linked list with an element pushed on the front..." << endl;
+    cout << "\nHere is the linked list with a random element pushed on the front..." << endl;
     myList->pshFrnt();
     prntLst(myList->head);
 
     //Printing after the push back
-    cout << "\nHere is the linked list with an element pushed on the back..." << endl;
+    cout << "\nHere is the linked list with a random element pushed on the back..." << endl;
     myList->pshBack();
+    prntLst(myList->head);
+    
+        //Printing after insertion
+    cout << "\nHere is the linked list with a random element inserted into the list "
+            "in order from the least to greatest" << endl;
+    myList->insertNode();
     prntLst(myList->head);
 
     //Printing after the pop front
@@ -54,16 +61,10 @@ int main(int argc, char** argv) {
     myList->popBack();
     prntLst(myList->head);
     
-    //Printing after insertion
-    cout << "\nHere is the linked list with an element inserted into the list "
-            "at random" << endl;
-    myList->insertNode();
-    prntLst(myList->head);
-    
        //Printing after insertion
     cout << "\nHere is the linked list with an element deleted from list "
             "at random" << endl;
-    myList->deleteLink(3);
+    myList->deleteLink(rand() % 5 + 1);
     prntLst(myList->head);
     
     //Delete all the allocated memory
