@@ -4,8 +4,6 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>Link.h</itemPath>
-      <itemPath>SimpleVector.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -28,9 +26,6 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
-  <sourceRootList>
-    <Elem>I:/CSC/mlehr/2019_Fall_CSC-CIS_17c/Lab/SimpleVector</Elem>
-  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="1">
@@ -41,10 +36,6 @@
       </toolsSet>
       <compileType>
       </compileType>
-      <item path="Link.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="SimpleVector.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
@@ -68,10 +59,6 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="Link.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="SimpleVector.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
