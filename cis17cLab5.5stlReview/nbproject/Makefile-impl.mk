@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=cis17cLab5.2stlReview
+PROJECTNAME=cis17cLab5.5stlReview
 
 # Active Configuration
 DEFAULTCONF=Debug
