@@ -39,6 +39,9 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <standard>11</standard>
+        </ccTool>
       </compileType>
       <item path="card.cpp" ex="false" tool="0" flavor2="0">
       </item>

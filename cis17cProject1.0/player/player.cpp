@@ -4,22 +4,3 @@
  * and open the template in the editor.
  */
 
-/* 
- * File:   player.cpp
- * Author: Jason
- * 
- * Created on April 14, 2021, 8:25 AM
- */
-
-#include "player.h"
-#include <map>
-
-player::player() {
-}
-
-player::player(const player& orig) {
-}
-
-player::~player() {
-}
-
