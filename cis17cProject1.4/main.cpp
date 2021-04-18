@@ -22,20 +22,20 @@ int main(int argc, char** argv) {
     int userChoice = 0;
     
     //displayWelcome();
-    //mainMenu();
+    mainMenu();
     
-    Deck test;
-    Player p1;
-    Player p2;
+//    Deck test;
+//    Player p1;
+//    Player cpu;
     
 //    Card c;
 //    c.test;
     
-    test.dealCards(p1);
-    p1.displayTopCard();
-    
-    test.dealCards(p2);
-    p2.displayTopCard();
+//    test.dealCards(p1);
+//    p1.displayTopCard();
+//    
+//    test.dealCards(cpu);
+//    cpu.displayTopCard();
 
     return 0;
 }

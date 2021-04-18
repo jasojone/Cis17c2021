@@ -24,26 +24,8 @@ private:
     const string suits[4] = {"CLUBS", "DIAMONDS", "HEARTS", "SPADES"};
     
 public:
-    Deck()
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            for (int j = 0; j <= 14; j++)
-            {
-                currDeck.emplace_back(Card(suits[i], j));
-            }
-        }
-        random_shuffle(currDeck.begin(), currDeck.end());
-    }
-    //virtual ~deck();
-    void dealCards(Player &currPlayer)
-    {
-        for (int i = 0; i < 26; i++)
-        {
-            currPlayer.currHand.push(currDeck.back());
-            currDeck.pop_back();
-        }
-    }
+    Deck();
+    void dealCards(Player &currPlayer);
 };
 #endif /* DECK_H */
 

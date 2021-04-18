@@ -13,7 +13,7 @@
 #include "Player.h"
 
 
-ofstream scoreB ("scoreBopard.txt");
+ofstream scoreB ("scoreBoard.txt");
 
   /****************************************************************************\
   * displayWelcom                                                              *
@@ -102,8 +102,10 @@ void mainMenu()
         {
             case 1:
                 cout << "Lets play WAR!\n";
-                cout << "Enter your Name:";
-                cin >> userName;
+//                cout << "Enter your Name:";
+//                cin >> userName;
+                gameLoop();
+                  
                 break;
 
             case 2:
@@ -118,6 +120,38 @@ void mainMenu()
                 userChoice = 0;
         }
     }
+}
+void gameLoop()
+{
+    Deck game;
+    Player p1;
+    Player cpu;
+    cout << "Dealing Cards...\n";
+    
+    game.dealCards(p1);
+    game.dealCards(cpu);
+    
+    do
+    {
+        cout << "The Battle Begins!\n";
+        
+        Card p1Top = p1.currHand.top();
+        Card cpuTop = cpu.currHand.top();
+        
+        cout << "Your Card:\n";
+        p1.displayTopCard();
+        cout << "Computers Card:\n";
+        cpu.displayTopCard();
+//        if (p1Top.cPower > cpuTop.cPower)
+//        {
+//            
+//        }
+        
+        
+        
+    }
+    while ((p1.currHand.size() + p1.wonCards.size()) != 52 &&
+            (cpu.currHand.size() + cpu.wonCards.size()) !=52);
 }
   /****************************************************************************\
   * rules                                                                      *

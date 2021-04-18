@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=temp
+PROJECTNAME=cis17cProject1.4
 
 # Active Configuration
 DEFAULTCONF=Debug

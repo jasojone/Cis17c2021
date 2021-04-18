@@ -16,12 +16,12 @@
 #include <map>
 
 using namespace std;
-//why a struct?
-struct Card
+
+class Card
 {
+public:
     string suit;    // cards suit 
     int cPower;     // power of the card to determine who will win the round
-    //constructer?
     Card(string s, int p)
     {
         suit = s;
@@ -30,7 +30,6 @@ struct Card
     //cardArt is the map with a nested map that contains cars ascii visual art
     map<string, map<int, string>> cardArt =
     {
-        
         {"CLUBS",
         {
             {2, ".------.\n|2.--. |\n| :(): |\n| ()() |\n| '--'2|\n`------'\n"},

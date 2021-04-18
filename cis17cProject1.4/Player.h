@@ -24,8 +24,8 @@ public:
     vector<Card> wonCards;
     void displayTopCard()
     {
-        Card tCard = currHand.top();
-        cout << tCard.cardArt[tCard.suit][tCard.cPower] << endl;
+        Card topCard = currHand.top();
+        cout << topCard.cardArt[topCard.suit][topCard.cPower] << endl;
     }
 };
 

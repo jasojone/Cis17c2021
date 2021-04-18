@@ -11,10 +11,10 @@
 #include <chrono>         // chrono::seconds
 #include <fstream>
 #include <iostream>
-#include <string>
 
 void displayWelcome();
 void mainMenu();
+void gameLoop();
 void rules();
 void scoreBoard();
 
