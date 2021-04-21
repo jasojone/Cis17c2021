@@ -12,7 +12,7 @@ Deck::Deck()
     {
         for (int i = 0; i < 4; i++)
         {
-            for (int j = 0; j <= 14; j++)
+            for (int j = 2; j <= 14; j++)
             {
                 currDeck.emplace_back(Card(suits[i], j));
             }
@@ -21,10 +21,11 @@ Deck::Deck()
     }
 
 void Deck::dealCards(Player &currPlayer)
- {
-     for (int i = 0; i < 26; i++)
-     {
-         currPlayer.currHand.push(currDeck.back());
-         currDeck.pop_back();
-     }
- }
+{
+    for (int i = 0; i < 26; i++)
+    {
+        currPlayer.currHand.push(currDeck.back());
+        currDeck.pop_back();
+    }
+}
+

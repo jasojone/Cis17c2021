@@ -13,6 +13,9 @@
 #include "Card.h"
 #include <stack>
 #include <vector>
+#include <queue>
+#include <algorithm>
+
 
 using namespace std;
 
@@ -21,12 +24,13 @@ class Player
 private:
 public:
     stack<Card> currHand;
-    vector<Card> wonCards;
-    void displayTopCard()
-    {
-        Card topCard = currHand.top();
-        cout << topCard.cardArt[topCard.suit][topCard.cPower] << endl;
-    }
+    vector<Card> cardsWon;
+    queue<Card> war;
+    
+    void displayTopCard();
+    void collectWon();
+    void printHand();
+    void shuffleIn();
 };
 
 #endif /* PLAYER_H */

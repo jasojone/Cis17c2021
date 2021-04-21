@@ -1,2 +1,3 @@
-﻿  player.cpp
+﻿  Game.cpp
+C:\Users\Jason\OneDrive\Documents\GitHub\Cis17c2021\cis17cProject1.2\cis17cProject1.2\Game.cpp(84,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   cis17cProject1.2.vcxproj -> C:\Users\Jason\OneDrive\Documents\GitHub\Cis17c2021\cis17cProject1.2\Debug\cis17cProject1.2.exe

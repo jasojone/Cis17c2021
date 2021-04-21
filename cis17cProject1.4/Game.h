@@ -11,14 +11,23 @@
 #include <chrono>         // chrono::seconds
 #include <fstream>
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include <limits>
+#include <queue>
+#include "Player.h"
+#include "Card.h"
+#include "Game.h"
+#include "Deck.h"
+#include "Player.h"
 
 void displayWelcome();
 void mainMenu();
 void gameLoop();
 void rules();
 void scoreBoard();
-
-
+void pressAnyKey();
+void war(Player &p1, Player &cpu);
 
 #endif /* GAME_H */
 
