@@ -222,40 +222,14 @@ void gameLoop()
                     //warCounter++;
                 }
             }
-            /*if(p1.war.size() > 1)
-            {
-                for(int i = 0; i < warCounter + 1; i++)
-                {
-                    p1.cardsWon.push_back(p1.war.front());
-                    p1.war.pop();
-                    p1.cardsWon.push_back(cpu.war.front());
-                    cpu.war.pop(); 
-                }
-            }
-            else
-            {
-                for (int i = 0; i < warCounter + 1; i++)
-                {
-                    cpu.cardsWon.push_back(cpu.war.front());
-                    cpu.war.pop();
-                    cpu.cardsWon.push_back(p1.war.front());
-                    p1.war.pop();           
-                }
-            }*/
         }
     }
-    while ((p1.currHand.size() + p1.cardsWon.size()) != 52 &&
-          (cpu.currHand.size() + cpu.cardsWon.size()) !=52 || gameOver != false);
+    while (((p1.currHand.size() + p1.cardsWon.size()) != 52 &&
+          (cpu.currHand.size() + cpu.cardsWon.size()) !=52) || gameOver == false);
     //cin.ignore(numeric_limits<streamsize>::max(), '\n')
     if (p1.cardsWon.size() + p1.currHand.size() > 2)
-    {
-        cout << "YOU WIN!\n";
-    }
-    
-    else if (cpu.cardsWon.size() + cpu.currHand.size() > 2)
-    {
-        cout << "You LOSE!\n";
-    }
+
+        
     
     cout << " Thank you for playing war\n";
     cout << "Press Enter to return to main";
