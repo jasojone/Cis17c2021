@@ -28,10 +28,7 @@ void rules();
 void scoreBoard();
 void pressAnyKey();
 void war(Player& p1, Player& cpu);
+void shuffleIn(Player& p1, Player& cpu);
 
 #endif /* GAME_H */
-
-
-
-
 
