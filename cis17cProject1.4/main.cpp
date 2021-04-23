@@ -17,13 +17,15 @@
 #include "Deck.h"
 #include "Game.h"
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv) 
+{
+    Game curGame;
+    curGame.mainMenu();
     
-    
-    int userChoice = 0;
+    //int userChoice = 0;
     
     //displayWelcome();
-    mainMenu();
+    //mainMenu();
     
 //    Deck test;
 //    Player p1;

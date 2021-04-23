@@ -26,7 +26,7 @@ private:
 public:
     Deck();
     void dealCards(Player &currPlayer);
-    void collectWon();
+    //void collectWon();
 };
 #endif /* DECK_H */
 
