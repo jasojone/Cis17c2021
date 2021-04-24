@@ -30,11 +30,12 @@ public:
     Game()
     {
        //Read from the file and fill in maps for the scores
+        //readScoresFromFile();
     }
     ~Game()
     {
         //Write the maps for scores into the file
-        writeScoresToFile();
+       //writeScoresToFile();
     }
     void displayWelcome();
     void mainMenu();
@@ -45,7 +46,10 @@ public:
     void war(Player &p1, Player &cpu, int &playCount);
     void shuffleIn(Player &p1, Player &cpu);
     void checkIfEnough(Player &p1, Player &cpu, bool &gameOver);
+    
+    // work to be done
     void writeScoresToFile();
+    void readScoresFromFile();
 };
 #endif /* GAME_H */
 
