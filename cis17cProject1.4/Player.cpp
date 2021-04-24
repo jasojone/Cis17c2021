@@ -44,7 +44,6 @@ void Player::printHand()
     Card topCard = tmp.top();
     cout << topCard.cardArt[topCard.suit][topCard.cPower] << endl;
     cout << topCard.cPower << " of " <<topCard.suit << endl;
-    //cout << "Y\n";
     tmp.pop();
     }
     
