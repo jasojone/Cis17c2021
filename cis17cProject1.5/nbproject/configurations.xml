@@ -16,7 +16,6 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>Card.cpp</itemPath>
       <itemPath>Deck.cpp</itemPath>
       <itemPath>Game.cpp</itemPath>
       <itemPath>Player.cpp</itemPath>
@@ -44,8 +43,6 @@
       </toolsSet>
       <compileType>
       </compileType>
-      <item path="Card.cpp" ex="false" tool="0" flavor2="0">
-      </item>
       <item path="Card.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Deck.cpp" ex="false" tool="1" flavor2="0">
@@ -83,8 +80,6 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="Card.cpp" ex="false" tool="0" flavor2="0">
-      </item>
       <item path="Card.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Deck.cpp" ex="false" tool="1" flavor2="0">

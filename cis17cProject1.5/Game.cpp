@@ -166,11 +166,12 @@ void Game::gameLoop()
         cout << "CPU's winnings " << cpu.cardsWon.size() << '\n';
         cout << "WAR queue " << p1.war.size() + cpu.war.size() << endl;
         cout << "Total cards in play " << p1.cardsWon.size()+p1.currHand.size()
-                + cpu.cardsWon.size()+cpu.currHand.size() << '\n';
+                + cpu.cardsWon.size()+cpu.currHand.size() + 
+                p1.war.size() + cpu.war.size() << '\n';
         cout << "Your Cards" << endl;
-        //p1.printHand();
+        p1.printHand();
         cout << "cpu's cards" << endl;
-        //cpu.printHand();
+        cpu.printHand();
         
         // shuffleIn will check currHand Size to see if any player still has 
         // cards on the stack to play with, if not shuffle the cardsWon and 
@@ -199,7 +200,7 @@ void Game::gameLoop()
         {
             cout << "You won the round!\n";
             cout << "Press Enter to continue\n";
-            //cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Taking your winnings.\n";
             
             // push the cards in play that are won onto the cardsWon pile
@@ -217,7 +218,7 @@ void Game::gameLoop()
         {
             cout << "You lost the round.\n";
             cout << "Press Enter to continue\n";
-            //cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "CPU takes the winnings.\n";
             
             // push the cards in play that are won to the cpu cards won pile
@@ -232,9 +233,17 @@ void Game::gameLoop()
         // if the cards are equal then go to war
         else
         {   
+            p1.war.push(p1Top);
+            p1.currHand.pop();
+            cpu.war.push(cpuTop);
+            cpu.currHand.pop();
             // condition for war
-            while (p1.currHand.top().cPower == cpu.currHand.top().cPower)
+            while ((p1Top.cPower == cpuTop.cPower) 
+                    && gameOver == false)
             {
+                p1Top.cPower = -1;
+                cpuTop.cPower = -2;
+                
                 // check if p1 has enough cards for war
                 if (p1.currHand.size() + p1.cardsWon.size() <= 2)
                 {
@@ -251,8 +260,8 @@ void Game::gameLoop()
                 gameOver = true; // end game loop
                 }
                 // call war loop
-                
-                war(p1, cpu, playCount);
+                if(gameOver == false)
+                    war(p1, cpu, playCount);
             }
         }
         
@@ -266,13 +275,14 @@ void Game::gameLoop()
         {
         gameOver = true; // end game loop
         }
+        
+        if(gameOver == true)
+            cout << "Game should be over!" << endl;
     }
     
     // condition that ends the game loop if either player has 52 cards &
     // the game over loop is true.
-    while (((p1.currHand.size() + p1.cardsWon.size()) != 52 
-            && (cpu.currHand.size() + cpu.cardsWon.size()) !=52)
-            || gameOver == false);
+    while (gameOver == false);
 
     if (p1.cardsWon.size() + p1.currHand.size() > 4)
     {
@@ -280,7 +290,7 @@ void Game::gameLoop()
         cout << "This game took " << playCount << " hands to complete." << endl;
         cout << "Thank you for playing WAR\n";
         cout << "Press Enter to return to main" << endl;
-       // cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
     
     else
@@ -289,7 +299,7 @@ void Game::gameLoop()
         cout << "This game took " << playCount << " hands to complete." << endl;
         cout << "Thank you for playing WAR\n";
         cout << "Press Enter to return to main" << endl;
-        //cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         //writeScoresToFile();
     }
       
@@ -318,6 +328,7 @@ void Game::war(Player &p1, Player &cpu, int &playCount)
             cout << "\n.------.\n| **** |\n| **** |"
                 "\n| **** |\n| **** |\n`------'\n";
         }
+/*
         // Place holder for for the cards that will be held in the war queue
         Card p1Top = p1.currHand.top();
         Card cpuTop = cpu.currHand.top(); 
@@ -327,17 +338,18 @@ void Game::war(Player &p1, Player &cpu, int &playCount)
         p1.war.push(p1Top);
         cpu.war.push(cpuTop);
 
+
         // pop the cards that initiated the war off the stack
         p1.currHand.pop();
         cpu.currHand.pop();
-
+*/
         //Check currHand Size to see if any player still has cards to play with
         shuffleIn(p1, cpu);
 
         // Facedown will be pulled off the stack and the next cards will be
         // placed on for the next battle
-        p1Top = p1.currHand.top();
-        cpuTop = cpu.currHand.top(); 
+        Card p1Top = p1.currHand.top();
+        Card cpuTop = cpu.currHand.top(); 
 
         // Add the face down cards to the war queue  
         p1.war.push(p1Top);
@@ -370,7 +382,7 @@ void Game::war(Player &p1, Player &cpu, int &playCount)
         {
             cout << "You won the WAR!\nTaking the spoils of WAR.\n";
             cout << "Press Enter to continue\n";
-            //cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             cout << string (100, '\n');
             p1.cardsWon.push_back(p1Top);
@@ -396,7 +408,7 @@ void Game::war(Player &p1, Player &cpu, int &playCount)
         {
             cout << "You Lost the WAR!\nCPU takes the spoils of WAR.\n";
             cout << "Press Enter to continue\n";
-            //cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << string (100, '\n');
 
             cpu.cardsWon.push_back(p1Top);
