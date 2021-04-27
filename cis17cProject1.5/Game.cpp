@@ -9,8 +9,6 @@
 
 #include "Game.h"
 
-ofstream scoreB ("scoreBoard.txt");
-
   /****************************************************************************\
   * displayWelcom                                                              *
   * This function will simply display the welcome screen and message.          *  
@@ -90,11 +88,10 @@ void Game::mainMenu()
         cout << "2) Rules\n";
         cout << "3) Score Board\n";
         cout << "4) Exit Game ";
-        cout << string(10, '\n'); //moves menu up a bit from the bottom      
-        // Takes user input for main menu.
-        cin >> userChoice;
-        // Clear the screen completely with printing out 100 new lines.
-        cout << string (100, '\n');
+        cout << string(3, '\n'); //moves menu up a bit from the bottom   
+        
+        // Takes user input for main menu uses input validation.
+        userChoice = readInput(userChoice);
 
         // Switch statement handles the main menu.
         switch (userChoice)
@@ -168,10 +165,10 @@ void Game::gameLoop()
         cout << "Total cards in play " << p1.cardsWon.size()+p1.currHand.size()
                 + cpu.cardsWon.size()+cpu.currHand.size() + 
                 p1.war.size() + cpu.war.size() << '\n';
-        cout << "Your Cards" << endl;
-        p1.printHand();
-        cout << "cpu's cards" << endl;
-        cpu.printHand();
+//        cout << "Your Cards" << endl;
+//        p1.printHand();
+//        cout << "cpu's cards" << endl;
+//        cpu.printHand();
         
         // shuffleIn will check currHand Size to see if any player still has 
         // cards on the stack to play with, if not shuffle the cardsWon and 
@@ -233,14 +230,20 @@ void Game::gameLoop()
         // if the cards are equal then go to war
         else
         {   
+            // The war queue will hold the face two war cards 
+            // and the two face down cards
+            // Push the war cards onto the war queue and pop them
+            // off the hands to move onto the war offerings
             p1.war.push(p1Top);
             p1.currHand.pop();
             cpu.war.push(cpuTop);
             cpu.currHand.pop();
-            // condition for war
+            
+            // condition for war within a war
             while ((p1Top.cPower == cpuTop.cPower) 
                     && gameOver == false)
             {
+                // temporarily change the top cards to carry on with the war 
                 p1Top.cPower = -1;
                 cpuTop.cPower = -2;
                 
@@ -286,8 +289,10 @@ void Game::gameLoop()
 
     if (p1.cardsWon.size() + p1.currHand.size() > 4)
     {
-        cout << "Congratulations You won the game of WAR" << endl;
+        cout << "Congratulations "<< userName << 
+                " You won the game of WAR" << endl;
         cout << "This game took " << playCount << " hands to complete." << endl;
+        highScore.insert(pair<int,string> (playCount, userName));
         cout << "Thank you for playing WAR\n";
         cout << "Press Enter to return to main" << endl;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -297,6 +302,7 @@ void Game::gameLoop()
     {
         cout << "You lost the game of WAR" << endl;        
         cout << "This game took " << playCount << " hands to complete." << endl;
+        highScore.insert(pair<int,string> (playCount, userName));
         cout << "Thank you for playing WAR\n";
         cout << "Press Enter to return to main" << endl;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -328,21 +334,7 @@ void Game::war(Player &p1, Player &cpu, int &playCount)
             cout << "\n.------.\n| **** |\n| **** |"
                 "\n| **** |\n| **** |\n`------'\n";
         }
-/*
-        // Place holder for for the cards that will be held in the war queue
-        Card p1Top = p1.currHand.top();
-        Card cpuTop = cpu.currHand.top(); 
-        
-        // The war queue will hold the face two war cards 
-        // and the two face down cards
-        p1.war.push(p1Top);
-        cpu.war.push(cpuTop);
 
-
-        // pop the cards that initiated the war off the stack
-        p1.currHand.pop();
-        cpu.currHand.pop();
-*/
         //Check currHand Size to see if any player still has cards to play with
         shuffleIn(p1, cpu);
 
@@ -441,19 +433,24 @@ void Game::rules()
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     
     cout << 
+    "-------------------------------THE RULES-------------------------------\n"
     "In the basic game there are two players and you use a standard 52 card\n"
     "pack. Cards rank as usual from high to low: A K Q J T 9 8 7 6 5 4 3 2.\n"
     "Suits are ignored in this game.\n\n"
-            
+     
+    "--------------------------------THE DEAL--------------------------------\n"
     "Deal out all the cards, so that each player has 26. Players do not look\n"
     "at their cards, but keep them in a packet face down. The object of the\n"
     "game is to win all the cards.\n\n"
             
+    "--------------------------------THE PLAY--------------------------------\n"   
     "Both players now turn their top card face up and put them on the table.\n"
     "Whoever turned the higher card takes both cards and adds them (face down)\n"
     "to the bottom of their packet. Then both players turn up their next card\n"
-    "and so on.\n\n"
+    "and so on. Once a player runs out of cards in their packet they will\n"
+    "shuffle the cards won and use them to continue to play.\n\n"
             
+    "--------------------------------THE WAR--------------------------------\n"       
     "If the turned up cards are equal there is a war. The tied cards stay on\n"
     "the table and both players play the next card of their pile face down\n"
     "and then another card face-up. Whoever has the higher of the new face-up\n"
@@ -463,55 +460,85 @@ void Game::rules()
     "The war goes on like this as long as the face-up cards continue to be\n"
     "equal. As soon as they are different the player of the higher card wins\n"
     "all the cards in the war.\n\n"
-            
+      
+    "--------------------------------THE WIN--------------------------------\n"
     "The game continues until one player has all the cards and wins.\n"
-    "This can take a long time.\n\n"
+    "This can take a long time.\n"
            
     "If you don't have enough cards to complete the war, you lose. If\n"
     "neither player has enough cards, the one who runs out first loses.\n"
     "If both run out simultaneously, it's a draw. Example: Players A and B\n"
     "both play sevens, so there is a war. Each player plays a card face down,\n"
     "but this is player B's last card. Player A wins, since player B does not\n"
-    "have enough cards to fight the war.\n" 
+    "have enough cards to fight the war.\n\n" 
+            
+    "--------------------------------SCOREBOARD--------------------------------"
+    "The scores will be kept based on play counts regardless of win or loss.\n"
+    "There will be a highest play count and a lowest play count bracket.\n" 
     "Press enter to continue\n"
     << endl;
     
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-void Game::scoreBoard()
+//void Game::scoreBoard()
+//{
+//   // Loop though both maps to display the scores tot he user. 
+//   // use for each loops to read from the map 
+//    map<int, int> testScores;
+//    
+//    map<int, int>::iterator itr = testScores.begin();
+//    for(;itr != testScores.end(); itr++)
+//    {
+//        cout << itr->first << " " << itr->second << endl;
+//    }
+//    
+//    itr = testScores.find(3);
+//    
+//    if(itr != testScores.end())
+//        cout << "Found that thing in the map!" << endl;
+//    else
+//        cout << "That thing isnt in the map!" << endl;
+//   
+//    string line;
+//    ifstream scoreB ("scoreBoard.txt");
+//    if (scoreB.is_open())
+//    {
+//        while ( getline (scoreB,line) )
+//        {
+//        cout << line << '\n';
+//        }
+//        scoreB.close();
+//    }
+//
+//    else cout << "Unable to open file";
+//}
+
+double Game::readInput(int userChoice)
 {
-   // Loop though both maps to display the scores tot he user. 
-   // use for each loops to read from the map 
-    map<int, int> testScores;
-    
-    map<int, int>::iterator itr = testScores.begin();
-    for(;itr != testScores.end(); itr++)
+    int choice = -1;
+    bool valid= false;
+    do
     {
-        cout << itr->first << " " << itr->second << endl;
-    }
-    
-    itr = testScores.find(3);
-    
-    if(itr != testScores.end())
-        cout << "Found that thing in the map!" << endl;
-    else
-        cout << "That thing isnt in the map!" << endl;
-   
-    string line;
-    ifstream scoreB ("scoreBoard.txt");
-    if (scoreB.is_open())
-    {
-        while ( getline (scoreB,line) )
+        cout << "Select your option \n" << flush;
+        cin >> choice;
+        if (choice == 1,2,3,4 && cin.good())
         {
-        cout << line << '\n';
+            //user input choice was valid
+            valid = true;
         }
-        scoreB.close();
-    }
+        else
+        {
+            //something went wrong, we reset the buffer's state to good
+            cin.clear();
+            // empty it
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cout << "Invalid input, please select 1-4." << endl;
+        }
+    } while (!valid);
 
-    else cout << "Unable to open file";
+    return (choice);
 }
-
 void Game::shuffleIn(Player &p1, Player &cpu)
 {
     if (p1.currHand.size() == 0)
@@ -542,13 +569,95 @@ void Game::shuffleIn(Player &p1, Player &cpu)
 //    } 
 //}
 
-void Game::writeScoresToFile()
+void Game::readScoresFromFile()
 {
-        //----------
+    /*stream
+     * 564,tas
+     * open file with fstream
+     * loop till end of file
+     * read in each time and parse it by the comma
+     * insert into map
+     * 
+     * close file after loop   * 
+     
+     */
+/*
+    fstream fin;
+    cout << "Opening file";
+    fin.open(scoreBoard.txt);
+    if(!fin)
+    {
+        cout << "Unable to open file" << endl;
+    }
+    else
+    {
+        while(scoresFileIn)
+        {
+            fin.read(());
+            cout << "Player:" <<  << "Score:" << << endl;
+        }
+        scoresFilIn.close();
+    }
+*/
+    ifstream inFile("scoreBoard.txt");
+    
+    if(inFile.is_open())
+    {
+        string curLine;
+
+        while(getline(inFile, curLine))
+        {
+            int start = 0;
+            string del = ",";
+            int end = curLine.find(del);        
+
+            int curScore = stoi(curLine.substr(start, end - start));
+            start = end + del.size();
+            end = curLine.find(del, start);
+            string curName = curLine.substr(start, end - start);
+            
+            cout << "HELLO" << endl;
+            cout << curScore << endl;
+            cout << curName << endl;
+
+            //highScore
+            pair<int, string> tmp = make_pair(curScore, curName);
+            highScore.insert(tmp);        
+        }
+    }
+}
+
+
+void Game::writeScoresToFile(int playCount, string userName)
+{
+    //----------
     //Check the current playCount to see if it worthy to be enter into the scores
     //myMapLognest.end()
     
     //Check longest
     
     //Check lowest 
+    ofstream fout;
+  
+    string line;
+
+    //fout.open("scoreBoard.txt");
+  
+    // Execute a loop If file successfully opened
+    while (fout) {
+  
+        // Read a Line from standard input
+        getline(cin, line);
+  
+        // Press -1 to exit
+        if (line == "-1")
+            break;
+  
+        // Write line in file
+        fout << line << endl;
+    }
+  
+    // Close the File
+    fout.close();
+    
 }

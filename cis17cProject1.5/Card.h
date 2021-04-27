@@ -17,13 +17,11 @@
 
 using namespace std;
 
-class Card
+struct Card
 {
-public:
     string suit;    // cards suit 
     int cPower;     // power of the card to determine who will win the round
-    //
-    Card(string s, int p)
+    Card(string s, int p)// assign the power and suit when card is created
     {
         suit = s;
         cPower = p;

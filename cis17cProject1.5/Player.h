@@ -22,6 +22,7 @@ using namespace std;
 class Player 
 {
 private:
+    //make prvt
 public:
     stack<Card> currHand;
     vector<Card> cardsWon;
