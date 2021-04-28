@@ -59,3 +59,15 @@ void Player::shuffleIn()
         cardsWon.pop_back();
     }
 }
+
+
+void Player::setName(string outName)
+{
+    playerName = outName;
+}
+
+string Player::getName()
+{
+    return playerName;
+
+}

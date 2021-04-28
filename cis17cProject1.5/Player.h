@@ -22,17 +22,18 @@ using namespace std;
 class Player 
 {
 private:
-    //make prvt
+    string playerName;
 public:
     stack<Card> currHand;
     vector<Card> cardsWon;
     queue<Card> war;
-    string player;
     
     void displayTopCard();
     void collectWon();
     void printHand();
     void shuffleIn();
+    void setName(string );
+    string getName();
 };
 
 #endif /* PLAYER_H */

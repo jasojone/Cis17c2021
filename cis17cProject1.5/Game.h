@@ -26,8 +26,7 @@
 class Game
 {
 private:
-    //make everything private and use getters and setters
-    //map<int, string> longestHighScores;
+
 public:
     Game()
     {
@@ -43,9 +42,7 @@ public:
     // Map for Shortest Games score for key value for player name this will 
     // sort the scores for you as maps 
     // Map for Longest Games
-    multimap<int, string> highScore;
-    //ifstream inFile;
-    //ofstream outFile;
+    multimap<int, string> highScores;
     void displayWelcome();
     void mainMenu();
     void gameLoop();
@@ -53,12 +50,10 @@ public:
     double readInput(int userChoice);
     void war(Player &p1, Player &cpu, int &playCount);
     void shuffleIn(Player &p1, Player &cpu);
-    //void checkIfEnough(Player &p1, Player &cpu, bool &gameOver);
-    
-    // work to be done
-//    void scoreBoard();
+    void scoreBoard();
     void readScoresFromFile();
-    void writeScoresToFile(int, string);
+    void writeScoresToFile();
+    void displayWar();
 };
 #endif /* GAME_H */
 
