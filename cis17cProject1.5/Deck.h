@@ -12,7 +12,6 @@
 #include <algorithm>
 #include <map>
 #include <stack>
-//#include <deque>
 #include <list>
 
 using namespace std;
@@ -26,7 +25,6 @@ private:
 public:
     Deck();
     void dealCards(Player &currPlayer);
-    //void collectWon();
 };
 #endif /* DECK_H */
 

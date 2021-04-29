@@ -34,11 +34,6 @@ public:
         //Read from the file and fill in maps for the scores
         readScoresFromFile();
     }
-    ~Game()
-    {
-       //Write the maps for scores into the file
-       //writeScoresToFile();
-    }
     // Map for Shortest Games score for key value for player name this will 
     // sort the scores for you as maps 
     // Map for Longest Games

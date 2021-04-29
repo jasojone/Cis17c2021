@@ -19,26 +19,12 @@
 
 int main(int argc, char** argv) 
 {
+    // Creates a new games instance.
     Game curGame;
+    // Display the welcome ASCII art message.
+    curGame.displayWelcome();
+    // Calls the main menu for the game. 
     curGame.mainMenu();
-    
-    //int userChoice = 0;
-    
-    //displayWelcome();
-    //mainMenu();
-    
-//    Deck test;
-//    Player p1;
-//    Player cpu;
-    
-//    Card c;
-//    c.test;
-    
-//    test.dealCards(p1);
-//    p1.displayTopCard();
-//    
-//    test.dealCards(cpu);
-//    cpu.displayTopCard();
 
     return 0;
 }

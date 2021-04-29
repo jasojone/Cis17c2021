@@ -24,7 +24,7 @@ class Player
 private:
     string playerName;
 public:
-    stack<Card> currHand;
+    stack<Card> handInPlay;
     vector<Card> cardsWon;
     queue<Card> war;
     
