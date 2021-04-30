@@ -11,13 +11,13 @@
 Deck::Deck()
     {
         // traverses through the suits of the deck.
-        for (int i = 0; i < 4; i++)
+        for (list<string>::iterator itr = suits.begin(); itr != suits.end(); itr++)
         {
             // traverses though the powers of each suit and populates the deck
             // with suited cards.
             for (int j = 2; j <= 14; j++)
             {
-                currDeck.emplace_back(Card(suits[i], j));
+                currDeck.emplace_back(Card(*itr, j));
             }
         }
         // once the deck is populated it is then shuffled for play.

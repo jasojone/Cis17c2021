@@ -26,7 +26,9 @@ struct Card
         suit = s;
         cPower = p;
     }
-    //cardArt is the map with a nested map that contains cars ascii visual art
+    // cardArt is the map with a nested map that contains cars ascii visual art
+    // the outer map key is the suits outer maps value is another map who's key 
+    // is the power of a card and the value is the art of the card. 
     map<string, map<int, string>> cardArt = 
     {
         {"CLUBS",
