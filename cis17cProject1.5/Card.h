@@ -4,11 +4,7 @@
  *
  * Created on April 1, 2021, 8:25 AM
  */
- /*****************************************************************************\
- * Card.h                                                                      *
- * This header file will contain the attributes of the card.                   *
- * Attributes: the cards suit, the power of the card and the cards ascii art.  *
- \*****************************************************************************/
+
 #ifndef CARD_H
 #define CARD_H
 
@@ -16,7 +12,11 @@
 #include <map>
 
 using namespace std;
-
+ /*****************************************************************************\
+ * Card                                                                        *
+ * The Card struct will contain the attributes of the card.                    *
+ * Attributes: the cards suit, the power of the card and the cards ascii art.  *
+ \*****************************************************************************/
 struct Card
 {
     string suit;    // cards suit 
@@ -27,7 +27,6 @@ struct Card
         cPower = p;
     }
     //cardArt is the map with a nested map that contains cars ascii visual art
-    // ♥  ♣  ♦  ♠ // should I keep 
     map<string, map<int, string>> cardArt = 
     {
         {"CLUBS",

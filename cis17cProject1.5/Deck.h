@@ -13,9 +13,13 @@
 #include <map>
 #include <stack>
 #include <list>
-
 using namespace std;
 
+ /*****************************************************************************\
+ * Deck                                                                        *
+ * The Deck class will contain the attributes of the deck of cards.             *
+ * Attributes: a vector of cards, a string array with suits for map keys.      *
+ \*****************************************************************************/
 class Deck 
 {
 private:
@@ -23,8 +27,8 @@ private:
     const string suits[4] = {"CLUBS", "DIAMONDS", "HEARTS", "SPADES"};
     
 public:
-    Deck();
-    void dealCards(Player &currPlayer);
+    Deck(); // default constructor will create the deck when instantiated. 
+    void dealCards(Player &currPlayer); // deals the card 26 per player.
 };
 #endif /* DECK_H */
 
