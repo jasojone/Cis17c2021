@@ -5,7 +5,13 @@
  * Created on April 1, 2021, 8:25 AM
  */
 #include "Player.h"
-// prints the card via power and suit.
+
+  /****************************************************************************\
+  * displayTopCard                                                             *
+  * This function will display the top card in play. It will use an if         *
+  * statement to print the text description of the card. After the text we     *
+  * will print the ascii art with subscript random access operators.           *
+  \****************************************************************************/
 void Player::displayTopCard()
 {
     Card topCard = handInPlay.top();
@@ -36,11 +42,18 @@ void Player::displayTopCard()
     cout << topCard.cardArt[topCard.suit][topCard.cPower] << endl;
 }
 
-
-// was used for testing may implement in future. 
+  /****************************************************************************\
+  * readInput                                                                  *
+  * Takes the user input and tests it to see if its an integer within range.   *
+  * Precondition: int userChoice 0                                             *
+  * Postcondition: dependent upon the user input, valid options are 1,2,3,4    *
+  \****************************************************************************/
 void Player::printHand()
 {
+    // creating a temporary clone of the stack of cards.
     stack<Card> tmp = this->handInPlay;
+    
+    // traverses though the entire list untill its empty.
     while (!tmp.empty())
     {
     Card topCard = tmp.top();
@@ -50,12 +63,23 @@ void Player::printHand()
     }
 }
 
-// takes the cards won shuffles them and pushes them back to the hand in play. 
+  /****************************************************************************\
+  * shuffleIn                                                                  *
+  * This function is called periodically in the game to check if the player/cpu*
+  * has depleted the cards in their hand in play. If the stack in play is      *
+  * empty the function calls shuffle in (part of the Player class) which       *
+  * shuffles the cards won pile and moves it to the hand in play.              *
+  * Precondition: hand in play state                                           *
+  * Postcondition: if hand in play is not 0 same, otherwise repopulates the    *
+  * hand in play with cards won shuffled.                                      *
+  \****************************************************************************/
 void Player::shuffleIn()
 {
-    
+    // shuffles the cards from beginning to end
     random_shuffle(cardsWon.begin(), cardsWon.end());
     
+    // populates the hand in play with the freshly shuffled card. 
+    // a for loop traverses through the entire won cards. 
     for (int i = cardsWon.size(); i > 0; i--)
     {
         handInPlay.push(cardsWon.back());
@@ -63,12 +87,19 @@ void Player::shuffleIn()
     }
 }
 
-
+  /****************************************************************************\
+  * setName                                                                    *
+  * a setter to set a private variable of the user name.                       *
+  \****************************************************************************/
 void Player::setName(string outName)
 {
     playerName = outName;
 }
 
+  /****************************************************************************\
+  * getName                                                                    *
+  * a getter for the playerName.                                               *
+  \****************************************************************************/
 string Player::getName()
 {
     return playerName;

@@ -116,7 +116,9 @@ void Game::gameLoop()
     {
         // Output the card total for each player.
         cout << "You have " << p1.cardsWon.size()+p1.handInPlay.size() << " cards total\n";
+        //p1.printHand(); for testing 
         cout << "The CPU has " << cpu.cardsWon.size()+cpu.handInPlay.size() << " cards total\n";
+        //cpu.printHand(); for testing 
         // Test counters to work on the game loop. 
         //testCounters(p1, cpu, playCount);
         
@@ -465,6 +467,7 @@ void Game::rules()
     
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
+
   /****************************************************************************\
   * scoreBoard                                                                 *
   * This function will display the rules of the game                           *
@@ -615,7 +618,7 @@ void Game::displayWar()
 }
 
   /****************************************************************************\
-  * displayWelcome                                                              *
+  * displayWelcome                                                             *
   * This function will simply display the welcome screen and message.          *  
   \****************************************************************************/
 void Game::displayWelcome()

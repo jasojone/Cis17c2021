@@ -23,8 +23,13 @@ using namespace std;
 class Deck 
 {
 private:
+    // The currDack is a vector of cards which will be used to populate the 
+    // 52 cards that will be used for the game. A vector was used for the
+    // purpose of random_shuffle 
     vector<Card> currDeck;
-    //const string suits[4] = {"CLUBS", "DIAMONDS", "HEARTS", "SPADES"};
+    // The suits are held in a list container to allow us to assign the 
+    // 14 cards of each suit typ. A list was used to fulfill the requirements
+    // of a list as well as iterators. 
     list<string> suits = {"CLUBS", "DIAMONDS", "HEARTS", "SPADES"};
     
 public:
