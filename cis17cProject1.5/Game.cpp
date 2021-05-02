@@ -275,7 +275,7 @@ void Game::war(Player &p1, Player &cpu, int &playCount)
     // the current hand stack
     playerShuffleIn(p1, cpu);
 
-    //display war function
+    // display war function
     displayWar();
 
     cout << "The offerings of war\n";
@@ -311,7 +311,7 @@ void Game::war(Player &p1, Player &cpu, int &playCount)
     p1Top = p1.handInPlay.top();
     cpuTop = cpu.handInPlay.top(); 
 
-    //Check curHand Size to see if any player still has cards to play with
+    // Check curHand Size to see if any player still has cards to play with
     playerShuffleIn(p1, cpu);
 
     // print cards for the war
@@ -659,7 +659,7 @@ void Game::displayWelcome()
   /****************************************************************************\
   * testCounters                                                               *
   * This function is called to test the specific number of cards each container*
-   * has. This was used for testing to validate the game loop logic.           *
+  * has. This was used for testing to validate the game loop logic.            *
   \****************************************************************************/
 void testCounters(int playCount, Player p1, Player cpu)
 {
