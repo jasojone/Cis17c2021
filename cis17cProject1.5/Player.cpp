@@ -40,6 +40,7 @@ void Player::displayTopCard()
         cout << "Ace" << " of " <<topCard.suit << endl;
     }
     cout << topCard.cardArt[topCard.suit][topCard.cPower] << endl;
+    //
 }
 
   /****************************************************************************\

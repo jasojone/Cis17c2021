@@ -29,6 +29,7 @@ Deck::Deck()
             }
         }
         // once the deck is populated it is then shuffled for play.
+        // using the random access iterator 
         random_shuffle(currDeck.begin(), currDeck.end());
     }
 
