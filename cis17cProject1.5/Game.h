@@ -7,6 +7,7 @@
 
 #ifndef GAME_H
 #define GAME_H
+#include <algorithm> 
 #include <thread> 
 #include <chrono>
 #include <fstream>          
@@ -41,6 +42,7 @@ public:
     void gameLoop(); // the main game loop.
     void rules(); // displays the rules. 
     double readInput(int userChoice); // checks if user input is valid for main menu.
+    void countAces(Player p1);
     void war(Player &p1, Player &cpu, int &playCount); // runs the logic for war loop.
     void playerShuffleIn(Player &p1, Player &cpu); // shuffles cards from won cards and puts them into the hand in play.
     void scoreBoard(); // displays the score board.

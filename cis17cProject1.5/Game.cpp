@@ -116,12 +116,10 @@ void Game::gameLoop()
     // The do while loop is the main game loop that will contain all the game logic. 
     do
     {
-        Card tmpCard("CLUBS", 14);
-        tmpCard.cPower = 14;
-        int tmp = count(p1.cardsWon.begin(), p1.cardsWon.end(), tmpCard);
-        cout << "You Have " << tmp << " Aces" << endl;
+
+
+        countAces(p1);
         // Output the card total for each player.
-        
         cout << "You have " << p1.cardsWon.size()+p1.handInPlay.size() << " cards total\n";
         
         //p1.printHand(); for testing 
@@ -419,6 +417,22 @@ double Game::readInput(int userChoice)
     } while (!valid);
 
     return (choice);
+}
+
+void Game::countAces(Player p1)
+{
+    Card tmpCard("CLUBS", 14);
+    int tmp = count(p1.cardsWon.begin(), p1.cardsWon.end(), tmpCard);
+    
+    stack<Card> tmpStack = p1.handInPlay;
+    
+    while (!tmpStack.empty())
+    {
+        if (tmpStack.top() == tmpCard) tmp++;
+        tmpStack.pop();
+    }
+
+    cout << "You Have " << tmp << " Aces" << endl;
 }
   /****************************************************************************\
   * rules                                                                      *
