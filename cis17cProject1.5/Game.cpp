@@ -419,19 +419,31 @@ double Game::readInput(int userChoice)
     return (choice);
 }
 
+  /****************************************************************************\
+  * countAces                                                                  *
+  * This function will count the number of aces that the player has. This will *
+  * show the player that the aces may not be the determining factor of who     *
+  * will win the game of war.                                                  *
+  \****************************************************************************/
 void Game::countAces(Player p1)
 {
+    // create a temporary card that will be used for the count algorithm.
     Card tmpCard("CLUBS", 14);
+    // the algorithm count was used here to count the number of Aces in the 
+    // players cards won. 
     int tmp = count(p1.cardsWon.begin(), p1.cardsWon.end(), tmpCard);
-    
+    // then create a temporary stack to hold the actual stack to be used for
+    // traversing through to add the aces that are in the hand. 
     stack<Card> tmpStack = p1.handInPlay;
     
+    // use of the while loop to traverse through the temp stack and add all
+    // the aces held to the count. 
     while (!tmpStack.empty())
     {
         if (tmpStack.top() == tmpCard) tmp++;
         tmpStack.pop();
     }
-
+    // display the total aces at the players disposal.
     cout << "You Have " << tmp << " Aces" << endl;
 }
   /****************************************************************************\
@@ -517,6 +529,8 @@ void Game::scoreBoard()
         cout << "Name: " << itr->second << endl;
         cout << "Score: " << itr->first << endl << endl;
     }
+    
+    
 }
 
   /****************************************************************************\
