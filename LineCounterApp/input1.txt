@@ -1,4 +1,259 @@
 /* 
+ * File:   Card.h
+ * Author: Jason
+ *
+ * Created on April 1, 2021, 8:25 AM
+ */
+
+#ifndef CARD_H
+#define CARD_H
+
+#include <iostream>
+#include <map>
+
+using namespace std;
+ /*****************************************************************************\
+ * Card                                                                        *
+ * The Card struct will contain the attributes of the card.                    *
+ * Attributes: the cards suit, the power of the card and the cards ascii art.  *
+ \*****************************************************************************/
+struct Card
+{
+    string suit;    // cards suit 
+    int cPower;     // power of the card to determine who will win the round
+    Card(string s, int p)// assign the power and suit when card is created
+    {
+        suit = s;
+        cPower = p;
+    }
+    friend bool operator==(const Card& l, const Card& r)
+    {
+        return l.cPower == r.cPower;
+    }
+    // cardArt is the map with a nested map that contains cars ascii visual art
+    // the outer map key is the suits outer maps value is another map who's key 
+    // is the power of a card and the value is the art of the card. 
+    map<string, map<int, string>> cardArt = 
+    {
+        {"CLUBS",
+            {
+
+                {2, ".------.\n|2   ♣|\n|  ()  |\n| ()() |\n|♣   2|\n`------'\n"},
+                {3, ".------.\n|3   ♣|\n|  ()  |\n| ()() |\n|♣   3|\n`------'\n"},
+                {4, ".------.\n|4   ♣|\n|  ()  |\n| ()() |\n|♣   4|\n`------'\n"},
+                {5, ".------.\n|5   ♣|\n|  ()  |\n| ()() |\n|♣   5|\n`------'\n"},
+                {6, ".------.\n|6   ♣|\n|  ()  |\n| ()() |\n|♣   6|\n`------'\n"},
+                {7, ".------.\n|7   ♣|\n|  ()  |\n| ()() |\n|♣   7|\n`------'\n"},
+                {8, ".------.\n|8   ♣|\n|  ()  |\n| ()() |\n|♣   8|\n`------'\n"},
+                {9, ".------.\n|9   ♣|\n|  ()  |\n| ()() |\n|♣   9|\n`------'\n"},
+                {10, ".------.\n|10  ♣|\n|  ()  |\n| ()() |\n|♣  10|\n`------'\n"},
+                {11, ".------.\n|J   ♣|\n|  ()  |\n| ()() |\n|♣   J|\n`------'\n"},
+                {12, ".------.\n|Q   ♣|\n|  ()  |\n| ()() |\n|♣   Q|\n`------'\n"},
+                {13, ".------.\n|K   ♣|\n|  ()  |\n| ()() |\n|♣   K|\n`------'\n"},
+                {14, ".------.\n|A   ♣|\n|  ()  |\n| ()() |\n|♣   A|\n`------'\n"}
+            }
+        },
+        {"DIAMONDS", 
+            {
+                {2, ".------.\n|2   ♦|\n|  /\\  |\n|  \\/  |\n|♦   2|\n`------'\n"},
+                {3, ".------.\n|3   ♦|\n|  /\\  |\n|  \\/  |\n|♦   3|\n`------'\n"},
+                {4, ".------.\n|4   ♦|\n|  /\\  |\n|  \\/  |\n|♦   4|\n`------'\n"},
+                {5, ".------.\n|5   ♦|\n|  /\\  |\n|  \\/  |\n|♦   5|\n`------'\n"},
+                {6, ".------.\n|6   ♦|\n|  /\\  |\n|  \\/  |\n|♦   6|\n`------'\n"},
+                {7, ".------.\n|7   ♦|\n|  /\\  |\n|  \\/  |\n|♦   7|\n`------'\n"},
+                {8, ".------.\n|8   ♦|\n|  /\\  |\n|  \\/  |\n|♦   8|\n`------'\n"},
+                {9, ".------.\n|9   ♦|\n|  /\\  |\n|  \\/  |\n|♦   9|\n`------'\n"},
+                {10, ".------.\n|10  ♦|\n|  /\\  |\n|  \\/  |\n|♦  10|\n`------'\n"},
+                {11, ".------.\n|J   ♦|\n|  /\\  |\n|  \\/  |\n|♦   J|\n`------'\n"},
+                {12, ".------.\n|Q   ♦|\n|  /\\  |\n|  \\/  |\n|♦   Q|\n`------'\n"},
+                {13, ".------.\n|K   ♦|\n|  /\\  |\n|  \\/  |\n|♦   K|\n`------'\n"},
+                {14, ".------.\n|A   ♦|\n|  /\\  |\n|  \\/  |\n|♦   A|\n`------'\n"}
+            }
+        },
+        {"HEARTS", 
+            {
+                {2, ".------.\n|2   ♥|\n| (\\/) |\n|  \\/  |\n|♥   2|\n`------'\n"},
+                {3, ".------.\n|3   ♥|\n| (\\/) |\n|  \\/  |\n|♥   3|\n`------'\n"},
+                {4, ".------.\n|4   ♥|\n| (\\/) |\n|  \\/  |\n|♥   4|\n`------'\n"},
+                {5, ".------.\n|5   ♥|\n| (\\/) |\n|  \\/  |\n|♥   5|\n`------'\n"},
+                {6, ".------.\n|6   ♥|\n| (\\/) |\n|  \\/  |\n|♥   6|\n`------'\n"},
+                {7, ".------.\n|7   ♥|\n| (\\/) |\n|  \\/  |\n|♥   7|\n`------'\n"},
+                {8, ".------.\n|8   ♥|\n| (\\/) |\n|  \\/  |\n|♥   8|\n`------'\n"},
+                {9, ".------.\n|9   ♥|\n| (\\/) |\n|  \\/  |\n|♥   9|\n`------'\n"},
+                {10, ".------.\n|10  ♥|\n| (\\/) |\n|  \\/  |\n|♥  10|\n`------'\n"},
+                {11, ".------.\n|J   ♥|\n| (\\/) |\n|  \\/  |\n|♥   J|\n`------'\n"},
+                {12, ".------.\n|Q   ♥|\n| (\\/) |\n|  \\/  |\n|♥   Q|\n`------'\n"},
+                {13, ".------.\n|K   ♥|\n| (\\/) |\n|  \\/  |\n|♥   K|\n`------'\n"},
+                {14, ".------.\n|A   ♥|\n| (\\/) |\n|  \\/  |\n|♥   A|\n`------'\n"}
+            }
+        },
+        {"SPADES",
+            {
+                {2, ".------.\n|2   ♠|\n|  /\\  |\n| (__) |\n|♠   2|\n`------'\n"},
+                {3, ".------.\n|3   ♠|\n|  /\\  |\n| (__) |\n|♠   3|\n`------'\n"},
+                {4, ".------.\n|4   ♠|\n|  /\\  |\n| (__) |\n|♠   4|\n`------'\n"},
+                {5, ".------.\n|5   ♠|\n|  /\\  |\n| (__) |\n|♠   5|\n`------'\n"},
+                {6, ".------.\n|6   ♠|\n|  /\\  |\n| (__) |\n|♠   6|\n`------'\n"},
+                {7, ".------.\n|7   ♠|\n|  /\\  |\n| (__) |\n|♠   7|\n`------'\n"},
+                {8, ".------.\n|8   ♠|\n|  /\\  |\n| (__) |\n|♠   8|\n`------'\n"},
+                {9, ".------.\n|9   ♠|\n|  /\\  |\n| (__) |\n|♠   9|\n`------'\n"},
+                {10, ".------.\n|10  ♠|\n|  /\\  |\n| (__) |\n|♠  10|\n`------'\n"},
+                {11, ".------.\n|J   ♠|\n|  /\\  |\n| (__) |\n|♠   J|\n`------'\n"},
+                {12, ".------.\n|Q   ♠|\n|  /\\  |\n| (__) |\n|♠   Q|\n`------'\n"},
+                {13, ".------.\n|K   ♠|\n|  /\\  |\n| (__) |\n|♠   K|\n`------'\n"},
+                {14, ".------.\n|A   ♠|\n|  /\\  |\n| (__) |\n|♠   A|\n`------'\n"}
+            }
+        }
+    };
+};
+
+#endif /* CARD_H */
+/* 
+ * File:   Deck.h
+ * Author: Jason
+ *
+ * Created on April 1, 2021, 8:25 AM
+ */
+#ifndef DECK_H
+#define DECK_H
+#include "Player.h"
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <map>
+#include <stack>
+#include <list>
+using namespace std;
+
+ /*****************************************************************************\
+ * Deck                                                                        *
+ * The Deck class will contain the attributes of the deck of cards.            *
+ * Attributes: a vector of cards, a string array with suits for map keys.      *
+ \*****************************************************************************/
+class Deck 
+{
+private:
+    // The currDack is a vector of cards which will be used to populate the 
+    // 52 cards that will be used for the game. A vector was used for the
+    // purpose of random_shuffle 
+    vector<Card> currDeck;
+    // The suits are held in a list container to allow us to assign the 
+    // 14 cards of each suit typ. A list was used to fulfill the requirements
+    // of a list as well as iterators. 
+    list<string> suits = {"CLUBS", "DIAMONDS", "HEARTS", "SPADES"};
+    
+public:
+    Deck(); // default constructor will create the deck when instantiated. 
+    void dealCards(Player &currPlayer); // deals the card 26 per player.
+};
+#endif /* DECK_H */
+/* 
+ * File:   Game.h
+ * Author: Jason
+ *
+ * Created on April 1, 2021, 9:04 PM
+ */
+
+#ifndef GAME_H
+#define GAME_H
+#include <algorithm> 
+#include <thread> 
+#include <chrono>
+#include <fstream>          
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include <limits>
+#include <queue>
+#include "Player.h"
+#include "Card.h"
+#include "Game.h"
+#include "Deck.h"
+#include "Player.h"
+ /*****************************************************************************\
+ * Game                                                                        *
+ * This class is a designed to hold all the attributes of the game. This will  *
+  * allow for the main function to maintain a minimalistic appearance.         *
+ \*****************************************************************************/
+class Game
+{
+public:
+    // the default constructor will call the function that reads scores from 
+    // the text file and populate the map to print the scores. 
+    Game()
+    {
+        readScoresFromFile();
+    }
+
+    multimap<int, string> highScores; // high scores container.
+    void displayWelcome(); // displays the welcome intro.
+    void mainMenu(); // displays the main menu and begins to gain user input.
+    void gameLoop(); // the main game loop.
+    void rules(); // displays the rules. 
+    double readInput(int userChoice); // checks if user input is valid for main menu.
+    void countAces(Player p1);
+    void war(Player &p1, Player &cpu, int &playCount); // runs the logic for war loop.
+    void playerShuffleIn(Player &p1, Player &cpu); // shuffles cards from won cards and puts them into the hand in play.
+    void scoreBoard(); // displays the score board.
+    void readScoresFromFile(); // reads scores from the file and populates the score board multimap
+    void writeScoresToFile(); // writes scores from the multimap to file 
+    void displayWar(); // displays was acsii art to reduce redundancy. 
+    void testCounters(Player p1, Player cpu, int playCount); // test function to count all cards in their respective containers. 
+};
+#endif /* GAME_H */
+/* 
+ * File:   Player.h
+ * Author: Jason
+ *
+ * Created on April 1, 2021, 8:25 AM
+ */
+ /*****************************************************************************\
+ * This header will contain the players hands and the display of the card in   *
+ * play                                                                        *
+ \*****************************************************************************/
+#ifndef PLAYER_H
+#define PLAYER_H
+#include "Card.h"
+#include <stack>
+#include <vector>
+#include <queue>
+#include <algorithm>
+
+using namespace std;
+
+ /*****************************************************************************\
+ * Player                                                                      *
+ * The Player class will contain the attributes of the player.                 *
+ * Attributes: players name string, hand in play stack, cards won vector,      *
+ * war cards queue.                                                            *
+ \*****************************************************************************/
+class Player 
+{
+private:
+    string playerName; // hold players name.
+public:
+    // hand in play used to pull cards from for each play a stack was used 
+    // for its simple nature only the top card needs to be accessed. 
+    stack<Card> handInPlay; 
+    // cards won is used to hold all the cards won from battles and wars
+    // a vector was used so that once the cards in hand in play run out
+    // we can simply use an algorithm to shuffle the cards before returning
+    // them to the hand in play. 
+    vector<Card> cardsWon; 
+    // the war queue is used to hold the cards offered for war as well as 
+    // the cards that initiate the war in the first place. A queue was used
+    // to fulfill the assignment requirements. 
+    queue<Card> war;
+    
+    void displayTopCard(); // displays top card.
+    void printHand(); // used to print the hand for testing.
+    void shuffleIn(); // shuffles the cards won and returns them to the hand in play.
+    void setName(string ); // setter for the player name.
+    string getName(); // getter for the player name. 
+};
+
+#endif /* PLAYER_H */
+/* 
  * File:   Deck.cpp
  * Author: Jason
  *
@@ -29,6 +284,7 @@ Deck::Deck()
             }
         }
         // once the deck is populated it is then shuffled for play.
+        // using the random access iterator 
         random_shuffle(currDeck.begin(), currDeck.end());
     }
 
@@ -126,14 +382,23 @@ void Game::gameLoop()
 {
     // Deck class instantiation refer to Deck.h for build and implementation.
     Deck gameDeck; 
+    
     // Creating the instance of the player and cpu player, refer to the 
     // Player.h for build and implementation.
     Player p1;
     Player cpu;
     
+    // playCount hold the number of hands played for high scores.
+    int playCount = 0;
+    
+    // gameOver bool controls the game over sequence, this is part of the 
+    // do while conditions in the game loop.
+    bool gameOver = false; 
+    
     // userName holds the username for high scores this will be set to the 
     // playerName private variable in the Player class.
     string userName; 
+    
     cout << "Enter your Name:\n";
     // clear the input buffer.
     cin.ignore();
@@ -141,14 +406,7 @@ void Game::gameLoop()
     getline(cin, userName);
     // use the setter to set name.
     p1.setName(userName);
-    // playCount hold the number of hands played for high scores.
-    int playCount = 0;
-    // gameOver bool controls the game over sequence, this is part of the 
-    // do while conditions in the game loop.
-    bool gameOver = false; 
     
-
-      
     cout << "Dealing Cards...\n\n";
     
     // dealCards() is called and deal the deck 26 cards to each player.
@@ -164,8 +422,12 @@ void Game::gameLoop()
     // The do while loop is the main game loop that will contain all the game logic. 
     do
     {
+
+
+        countAces(p1);
         // Output the card total for each player.
         cout << "You have " << p1.cardsWon.size()+p1.handInPlay.size() << " cards total\n";
+        
         //p1.printHand(); for testing 
         cout << "The CPU has " << cpu.cardsWon.size()+cpu.handInPlay.size() << " cards total\n";
         //cpu.printHand(); for testing 
@@ -462,6 +724,34 @@ double Game::readInput(int userChoice)
 
     return (choice);
 }
+
+  /****************************************************************************\
+  * countAces                                                                  *
+  * This function will count the number of aces that the player has. This will *
+  * show the player that the aces may not be the determining factor of who     *
+  * will win the game of war.                                                  *
+  \****************************************************************************/
+void Game::countAces(Player p1)
+{
+    // create a temporary card that will be used for the count algorithm.
+    Card tmpCard("CLUBS", 14);
+    // the algorithm count was used here to count the number of Aces in the 
+    // players cards won. 
+    int tmp = count(p1.cardsWon.begin(), p1.cardsWon.end(), tmpCard);
+    // then create a temporary stack to hold the actual stack to be used for
+    // traversing through to add the aces that are in the hand. 
+    stack<Card> tmpStack = p1.handInPlay;
+    
+    // use of the while loop to traverse through the temp stack and add all
+    // the aces held to the count. 
+    while (!tmpStack.empty())
+    {
+        if (tmpStack.top() == tmpCard) tmp++;
+        tmpStack.pop();
+    }
+    // display the total aces at the players disposal.
+    cout << "You Have " << tmp << " Aces" << endl;
+}
   /****************************************************************************\
   * rules                                                                      *
   * This function will display the rules of the game                           *
@@ -545,6 +835,8 @@ void Game::scoreBoard()
         cout << "Name: " << itr->second << endl;
         cout << "Score: " << itr->first << endl << endl;
     }
+    
+    
 }
 
   /****************************************************************************\
@@ -734,7 +1026,6 @@ void testCounters(int playCount, Player p1, Player cpu)
         cout << "cpu's cards" << endl;
         cpu.printHand();   
 }
-
 /* 
  * File:   Player.h
  * Author: Jason
@@ -777,6 +1068,7 @@ void Player::displayTopCard()
         cout << "Ace" << " of " <<topCard.suit << endl;
     }
     cout << topCard.cardArt[topCard.suit][topCard.cPower] << endl;
+    //
 }
 
   /****************************************************************************\
@@ -873,254 +1165,8 @@ int main(int argc, char** argv)
     // Exit the program
     return 0;
 }
-/* 
- * File:   Card.h
- * Author: Jason
- *
- * Created on April 1, 2021, 8:25 AM
- */
 
-#ifndef CARD_H
-#define CARD_H
 
-#include <iostream>
-#include <map>
 
-using namespace std;
- /*****************************************************************************\
- * Card                                                                        *
- * The Card struct will contain the attributes of the card.                    *
- * Attributes: the cards suit, the power of the card and the cards ascii art.  *
- \*****************************************************************************/
-struct Card
-{
-    string suit;    // cards suit 
-    int cPower;     // power of the card to determine who will win the round
-    Card(string s, int p)// assign the power and suit when card is created
-    {
-        suit = s;
-        cPower = p;
-    }
-    // cardArt is the map with a nested map that contains cars ascii visual art
-    // the outer map key is the suits outer maps value is another map who's key 
-    // is the power of a card and the value is the art of the card. 
-    map<string, map<int, string>> cardArt = 
-    {
-        {"CLUBS",
-            {
 
-                {2, ".------.\n|2   ♣|\n|  ()  |\n| ()() |\n|♣   2|\n`------'\n"},
-                {3, ".------.\n|3   ♣|\n|  ()  |\n| ()() |\n|♣   3|\n`------'\n"},
-                {4, ".------.\n|4   ♣|\n|  ()  |\n| ()() |\n|♣   4|\n`------'\n"},
-                {5, ".------.\n|5   ♣|\n|  ()  |\n| ()() |\n|♣   5|\n`------'\n"},
-                {6, ".------.\n|6   ♣|\n|  ()  |\n| ()() |\n|♣   6|\n`------'\n"},
-                {7, ".------.\n|7   ♣|\n|  ()  |\n| ()() |\n|♣   7|\n`------'\n"},
-                {8, ".------.\n|8   ♣|\n|  ()  |\n| ()() |\n|♣   8|\n`------'\n"},
-                {9, ".------.\n|9   ♣|\n|  ()  |\n| ()() |\n|♣   9|\n`------'\n"},
-                {10, ".------.\n|10  ♣|\n|  ()  |\n| ()() |\n|♣  10|\n`------'\n"},
-                {11, ".------.\n|J   ♣|\n|  ()  |\n| ()() |\n|♣   J|\n`------'\n"},
-                {12, ".------.\n|Q   ♣|\n|  ()  |\n| ()() |\n|♣   Q|\n`------'\n"},
-                {13, ".------.\n|K   ♣|\n|  ()  |\n| ()() |\n|♣   K|\n`------'\n"},
-                {14, ".------.\n|A   ♣|\n|  ()  |\n| ()() |\n|♣   A|\n`------'\n"}
-            }
-        },
-        {"DIAMONDS", 
-            {
-                {2, ".------.\n|2   ♦|\n|  /\\  |\n|  \\/  |\n|♦   2|\n`------'\n"},
-                {3, ".------.\n|3   ♦|\n|  /\\  |\n|  \\/  |\n|♦   3|\n`------'\n"},
-                {4, ".------.\n|4   ♦|\n|  /\\  |\n|  \\/  |\n|♦   4|\n`------'\n"},
-                {5, ".------.\n|5   ♦|\n|  /\\  |\n|  \\/  |\n|♦   5|\n`------'\n"},
-                {6, ".------.\n|6   ♦|\n|  /\\  |\n|  \\/  |\n|♦   6|\n`------'\n"},
-                {7, ".------.\n|7   ♦|\n|  /\\  |\n|  \\/  |\n|♦   7|\n`------'\n"},
-                {8, ".------.\n|8   ♦|\n|  /\\  |\n|  \\/  |\n|♦   8|\n`------'\n"},
-                {9, ".------.\n|9   ♦|\n|  /\\  |\n|  \\/  |\n|♦   9|\n`------'\n"},
-                {10, ".------.\n|10  ♦|\n|  /\\  |\n|  \\/  |\n|♦  10|\n`------'\n"},
-                {11, ".------.\n|J   ♦|\n|  /\\  |\n|  \\/  |\n|♦   J|\n`------'\n"},
-                {12, ".------.\n|Q   ♦|\n|  /\\  |\n|  \\/  |\n|♦   Q|\n`------'\n"},
-                {13, ".------.\n|K   ♦|\n|  /\\  |\n|  \\/  |\n|♦   K|\n`------'\n"},
-                {14, ".------.\n|A   ♦|\n|  /\\  |\n|  \\/  |\n|♦   A|\n`------'\n"}
-            }
-        },
-        {"HEARTS", 
-            {
-                {2, ".------.\n|2   ♥|\n| (\\/) |\n|  \\/  |\n|♥   2|\n`------'\n"},
-                {3, ".------.\n|3   ♥|\n| (\\/) |\n|  \\/  |\n|♥   3|\n`------'\n"},
-                {4, ".------.\n|4   ♥|\n| (\\/) |\n|  \\/  |\n|♥   4|\n`------'\n"},
-                {5, ".------.\n|5   ♥|\n| (\\/) |\n|  \\/  |\n|♥   5|\n`------'\n"},
-                {6, ".------.\n|6   ♥|\n| (\\/) |\n|  \\/  |\n|♥   6|\n`------'\n"},
-                {7, ".------.\n|7   ♥|\n| (\\/) |\n|  \\/  |\n|♥   7|\n`------'\n"},
-                {8, ".------.\n|8   ♥|\n| (\\/) |\n|  \\/  |\n|♥   8|\n`------'\n"},
-                {9, ".------.\n|9   ♥|\n| (\\/) |\n|  \\/  |\n|♥   9|\n`------'\n"},
-                {10, ".------.\n|10  ♥|\n| (\\/) |\n|  \\/  |\n|♥  10|\n`------'\n"},
-                {11, ".------.\n|J   ♥|\n| (\\/) |\n|  \\/  |\n|♥   J|\n`------'\n"},
-                {12, ".------.\n|Q   ♥|\n| (\\/) |\n|  \\/  |\n|♥   Q|\n`------'\n"},
-                {13, ".------.\n|K   ♥|\n| (\\/) |\n|  \\/  |\n|♥   K|\n`------'\n"},
-                {14, ".------.\n|A   ♥|\n| (\\/) |\n|  \\/  |\n|♥   A|\n`------'\n"}
-            }
-        },
-        {"SPADES",
-            {
-                {2, ".------.\n|2   ♠|\n|  /\\  |\n| (__) |\n|♠   2|\n`------'\n"},
-                {3, ".------.\n|3   ♠|\n|  /\\  |\n| (__) |\n|♠   3|\n`------'\n"},
-                {4, ".------.\n|4   ♠|\n|  /\\  |\n| (__) |\n|♠   4|\n`------'\n"},
-                {5, ".------.\n|5   ♠|\n|  /\\  |\n| (__) |\n|♠   5|\n`------'\n"},
-                {6, ".------.\n|6   ♠|\n|  /\\  |\n| (__) |\n|♠   6|\n`------'\n"},
-                {7, ".------.\n|7   ♠|\n|  /\\  |\n| (__) |\n|♠   7|\n`------'\n"},
-                {8, ".------.\n|8   ♠|\n|  /\\  |\n| (__) |\n|♠   8|\n`------'\n"},
-                {9, ".------.\n|9   ♠|\n|  /\\  |\n| (__) |\n|♠   9|\n`------'\n"},
-                {10, ".------.\n|10  ♠|\n|  /\\  |\n| (__) |\n|♠  10|\n`------'\n"},
-                {11, ".------.\n|J   ♠|\n|  /\\  |\n| (__) |\n|♠   J|\n`------'\n"},
-                {12, ".------.\n|Q   ♠|\n|  /\\  |\n| (__) |\n|♠   Q|\n`------'\n"},
-                {13, ".------.\n|K   ♠|\n|  /\\  |\n| (__) |\n|♠   K|\n`------'\n"},
-                {14, ".------.\n|A   ♠|\n|  /\\  |\n| (__) |\n|♠   A|\n`------'\n"}
-            }
-        }
-    };
-};
 
-#endif /* CARD_H */
-/* 
- * File:   Deck.h
- * Author: Jason
- *
- * Created on April 1, 2021, 8:25 AM
- */
-#ifndef DECK_H
-#define DECK_H
-#include "Player.h"
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <map>
-#include <stack>
-#include <list>
-using namespace std;
-
- /*****************************************************************************\
- * Deck                                                                        *
- * The Deck class will contain the attributes of the deck of cards.            *
- * Attributes: a vector of cards, a string array with suits for map keys.      *
- \*****************************************************************************/
-class Deck 
-{
-private:
-    // The currDack is a vector of cards which will be used to populate the 
-    // 52 cards that will be used for the game. A vector was used for the
-    // purpose of random_shuffle 
-    vector<Card> currDeck;
-    // The suits are held in a list container to allow us to assign the 
-    // 14 cards of each suit typ. A list was used to fulfill the requirements
-    // of a list as well as iterators. 
-    list<string> suits = {"CLUBS", "DIAMONDS", "HEARTS", "SPADES"};
-    
-public:
-    Deck(); // default constructor will create the deck when instantiated. 
-    void dealCards(Player &currPlayer); // deals the card 26 per player.
-};
-#endif /* DECK_H */
-
-/* 
- * File:   Game.h
- * Author: Jason
- *
- * Created on April 1, 2021, 9:04 PM
- */
-
-#ifndef GAME_H
-#define GAME_H
-#include <thread> 
-#include <chrono>
-#include <fstream>          
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <limits>
-#include <queue>
-#include "Player.h"
-#include "Card.h"
-#include "Game.h"
-#include "Deck.h"
-#include "Player.h"
- /*****************************************************************************\
- * Game                                                                        *
- * This class is a designed to hold all the attributes of the game. This will  *
-  * allow for the main function to maintain a minimalistic appearance.         *
- \*****************************************************************************/
-class Game
-{
-public:
-    // the default constructor will call the function that reads scores from 
-    // the text file and populate the map to print the scores. 
-    Game()
-    {
-        readScoresFromFile();
-    }
-
-    multimap<int, string> highScores; // high scores container.
-    void displayWelcome(); // displays the welcome intro.
-    void mainMenu(); // displays the main menu and begins to gain user input.
-    void gameLoop(); // the main game loop.
-    void rules(); // displays the rules. 
-    double readInput(int userChoice); // checks if user input is valid for main menu.
-    void war(Player &p1, Player &cpu, int &playCount); // runs the logic for war loop.
-    void playerShuffleIn(Player &p1, Player &cpu); // shuffles cards from won cards and puts them into the hand in play.
-    void scoreBoard(); // displays the score board.
-    void readScoresFromFile(); // reads scores from the file and populates the score board multimap
-    void writeScoresToFile(); // writes scores from the multimap to file 
-    void displayWar(); // displays was acsii art to reduce redundancy. 
-    void testCounters(Player p1, Player cpu, int playCount); // test function to count all cards in their respective containers. 
-};
-#endif /* GAME_H */
-
-/* 
- * File:   Player.h
- * Author: Jason
- *
- * Created on April 1, 2021, 8:25 AM
- */
- /*****************************************************************************\
- * This header will contain the players hands and the display of the card in   *
- * play                                                                        *
- \*****************************************************************************/
-#ifndef PLAYER_H
-#define PLAYER_H
-#include "Card.h"
-#include <stack>
-#include <vector>
-#include <queue>
-#include <algorithm>
-
-using namespace std;
-
- /*****************************************************************************\
- * Player                                                                      *
- * The Player class will contain the attributes of the player.                 *
- * Attributes: players name string, hand in play stack, cards won vector,      *
- * war cards queue.                                                            *
- \*****************************************************************************/
-class Player 
-{
-private:
-    string playerName; // hold players name.
-public:
-    // hand in play used to pull cards from for each play a stack was used 
-    // for its simple nature only the top card needs to be accessed. 
-    stack<Card> handInPlay; 
-    // cards won is used to hold all the cards won from battles and wars
-    // a vector was used so that once the cards in hand in play run out
-    // we can simply use an algorithm to shuffle the cards before returning
-    // them to the hand in play. 
-    vector<Card> cardsWon; 
-    // the war queue is used to hold the cards offered for war as well as 
-    // the cards that initiate the war in the first place. A queue was used
-    // to fulfill the assignment requirements. 
-    queue<Card> war;
-    
-    void displayTopCard(); // displays top card.
-    void printHand(); // used to print the hand for testing.
-    void shuffleIn(); // shuffles the cards won and returns them to the hand in play.
-    void setName(string ); // setter for the player name.
-    string getName(); // getter for the player name. 
-};
-
-#endif /* PLAYER_H */

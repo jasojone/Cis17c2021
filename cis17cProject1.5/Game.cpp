@@ -503,13 +503,36 @@ void Game::rules()
 }
 
   /****************************************************************************\
+  * compMap                                                                    *
+  * This function will compare two pairs and return the result of the smaller  *
+  * of the two                                                                 *
+  \****************************************************************************/
+bool compMap(pair<int,string> a, pair<int,string> b)
+{
+    return a.first < b.first;
+}
+
+  /****************************************************************************\
   * scoreBoard                                                                 *
   * This function will display the rules of the game                           *
   \****************************************************************************/
 void Game::scoreBoard()
 {
+    cout << string (100, '\n');
+    
+    // declare two maps that will be used to implement the max and min algorithm
+    // two iterators that are being used are bidirectional and the compMap function
+    pair<int, string> max = *max_element(highScores.begin(),highScores.end(), compMap);
+    pair<int, string> min = *min_element(highScores.begin(),highScores.end(), compMap);
+    cout << "The Hall of Fame:" << endl;
+    cout << "Longest Game of all Time" << endl;
+    // print the name ans the score
+    cout << max.second << ": "<< max.first << endl << endl;
+    cout << "Shortest Game of all Time" << endl;
+    cout << min.second << ": "<< min.first << endl << endl;
+    
     int count = 0;
-    cout << "The Longest Games Hand Count:" << endl;
+    cout << "The 10 Longest Games:" << endl;
     // The for loop will traverse the list from the end of the list to a count 
     // of 10 this will display the top ten highest hand count games. In order 
     // to do this a reverse_iterator is used to start at the end of the multi map.
@@ -520,7 +543,7 @@ void Game::scoreBoard()
     }
     
     count = 0;
-    cout << "The Shortest Games Hand Count:" << endl;
+    cout << "The 10 Shortest Games:" << endl;
     // The for loop will traverse the list from the beginning of the list to a count 
     // of 10 this will display the top ten lowest hand count games. In order 
     // to do this a iterator is used to start at the beginning of the multi map.
@@ -529,9 +552,9 @@ void Game::scoreBoard()
         cout << "Name: " << itr->second << endl;
         cout << "Score: " << itr->first << endl << endl;
     }
-    
-    
+
 }
+
 
   /****************************************************************************\
   * playerShuffleIn 
