@@ -32,8 +32,8 @@ int main(int argc, char** argv)
     srand(time(NULL));
     int n = 0;
     
-    cout << "Flipping a coin 4 times and recording every event the coin lands "
-            "heads 3 times and tails once. We will do this 10,000 times" << endl;
+    cout << "Flipping a coin 4 times and recording every event the coin lands on " <<
+            "heads 3 times and tails per trial.\nWe will do this trial 10,000 times.\n" << endl;
     
     for (int i = 0; i<10000; i++)
     {
@@ -49,9 +49,12 @@ int main(int argc, char** argv)
         if (h == 3 && t == 1)
         n++;
     }
-    cout << "n = " <<  n   << endl;
-    cout << "The probability of 3 heads and 1 tails for four flips done" <<
-            " 10000 times is  " << n/10000.0 << endl;
+    
+    cout << "In 10,000 trials there were " << n << " occurrences where there " <<
+            "was 3 heads and 1 tail.\n" << endl;
+    
+    cout << "The probability of the trail getting the occurrence of 3 heads and" <<
+            " 1 tails for four flips in 10000 trials is " << n/10000.0 << endl;
     
     
     return 0;

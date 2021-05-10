@@ -25,14 +25,18 @@ int main(int argc, char** argv)
     
     auto coinToss = []() // the return typ is automatically detected. 
     {
+    // ternary operator although it is not needed
     return (rand() % 10 < 6) ? Coin::HEADS : Coin::TAILS;
     //return (rand() % 2)
     };
     
-    
     srand(time(NULL));
     int n = 0;
     
+       cout << "Flipping a loaded coin with a 60% probability of landing on " <<
+               "heads 4 times and recording every\nevent the coin lands on " <<
+               "heads 3 times and tails once. We will do this trial 10,000 times.\n" << endl;
+       
     for (int i = 0; i<10000; i++)
     {
         int h = 0;
@@ -47,10 +51,12 @@ int main(int argc, char** argv)
         if (h == 3 && t == 1)
         n++;
     }
-    cout << "n = " <<  n   << endl;
-    cout << "The probability of a loaded coin with a 60% chance for heads\n" <<
-            "getting 3 heads and 1 tails for four flips done 10000 times is  " 
-            << n/10000.0 << endl;
+    cout << "In 10,000 trials with the loaded coin there were " << n << 
+            " occurrences where there was 3 heads and 1 tail.\n" << endl << endl;
+    
+    cout << "The probability of a loaded coin with a 60% chance for heads " <<
+            "getting an occurrence of 3 heads and 1 tails is:\n" << 
+            n/10000.0 << endl;
     
     
     return 0;
