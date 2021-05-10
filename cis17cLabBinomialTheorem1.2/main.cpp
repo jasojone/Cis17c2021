@@ -16,26 +16,35 @@
 #include <ctime>
 using namespace std;
 
-enum Coin {HEADS, TAILS}
 
-void flipCoin()
-{
-    return (rand() > RAND_MAX/2) ? Coin::HEADS : Coin::TAILS;
-}
 
 int main(int argc, char** argv) 
 {
+    enum Coin {HEADS, TAILS};
+    
+    auto coinToss = []()
+    {
+    
+    const int MIN_VALUE = 1,
+              MAX_VALUE = 2;
+    
+    int coin;
+    
+    coin = (rand() % (MAX_VALUE - MIN_VALUE +1)) + MIN_VALUE;
+    return (coin == MIN_VALUE) ? Coin::HEADS : Coin::TAILS;
+    };
+    
+    
     srand(time(NULL));
     int n = 0;
-    cout << " probability" << endl;
     
-    for (int i = 0; 1<10000; i++)
+    for (int i = 0; i<10000; i++)
     {
         int h = 0;
         int t = 0;
         for (int j = 0; j < 4; j++)
         {
-        if (flipCoin() == Coin::HEADS)
+        if (coinToss() == Coin::HEADS)
             h++;
         else
             t++;     
@@ -43,8 +52,8 @@ int main(int argc, char** argv)
         if (h == 3 && t == 1)
         n++;
     }
-
-
+    cout <<  n  << "n" << endl;
+    cout << n/10000.0 << endl;
     
     
     return 0;

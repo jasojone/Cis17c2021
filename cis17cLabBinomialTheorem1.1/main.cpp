@@ -18,16 +18,24 @@ using namespace std;
 
 enum Coin {HEADS, TAILS}
 
-void flipCoin()
+Coin coinToss()
 {
-    return (rand() > RAND_MAX/2) ? Coin::HEADS : Coin::TAILS;
+    
+    const int MIN_VALUE = 1, MAX_VALUE = 2;
+    
+    
+    int coin;
+    
+    coin = (rand() % (MAX_VALUE - MIN_VALUE +1)) + MIN_VALUE;
+    
+    return (coin == MIN_VALUE) ? Coin::HEADS : Coin::TAILS;
+    
 }
 
 int main(int argc, char** argv) 
 {
     srand(time(NULL));
     int n = 0;
-    cout << " probability" << endl;
     
     for (int i = 0; 1<10000; i++)
     {
@@ -35,15 +43,15 @@ int main(int argc, char** argv)
         int t = 0;
         for (int j = 0; j < 4; j++)
         {
-        if (flipCoin() == Coin::HEADS)
+        if (coinToss() == Coin::HEADS)
             h++;
         else
             t++;     
         }
-        if (h == 3 && t == 1)
+        f (h == 3 && t == 1)
         n++;
+    
     }
-
 
     
     
