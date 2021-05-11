@@ -58,24 +58,36 @@ void logN(long s, long m, long h, long d, long mon, long y, long cen, long dec)
 
 void sqrtN(long num)
 {
-    cout << sqrt(num) << endl;
+    cout << sqrt(num) << endl << endl;
+}
+
+void sqrt2logN(long num)
+{
+    
+}
+
+void twoSqrtN(long num)
+{
+    cout << log2(num) << endl;
 }
 
 
 int main(int argc, char** argv) {
 
     // in milliseconds 
-    long s = 1000;
-    long m = s * 60;
-    long h = m * 60;
-    long d = h * 24 ;
-    long mon = d * 30;
-    long y = d * 365;
-    long dec = y * 10;
-    long cen = dec * 10;
+    unsigned long s = 1000;
+    unsigned long m = s * 60;
+    unsigned long h = m * 60;
+    unsigned long d = h * 24 ;
+    unsigned long mon = d * 30;
+    unsigned long y = d * 365;
+    unsigned long dec = y * 10;
+    unsigned long cen = dec * 10;
     
     sqrtN( s,  m,  h,  d,  mon,  y,  cen,  dec);
+    
     cbrtN( s,  m,  h,  d,  mon,  y,  cen,  dec);
+    
     logN( s,  m,  h,  d,  mon,  y,  cen,  dec);
     
     cout << "n^2" << endl;
@@ -84,8 +96,19 @@ int main(int argc, char** argv) {
     sqrtN(h);
     sqrtN(d);
     sqrtN(mon);
-    sqrtN(cen);
+    sqrtN(y);
     sqrtN(dec);
+    sqrtN(cen);
+    
+    cout << "2^n" << endl;
+    twoSqrtN(s);
+    twoSqrtN(m);
+    twoSqrtN(h);
+    twoSqrtN(d);
+    twoSqrtN(mon);
+    twoSqrtN(y);
+    twoSqrtN(dec);
+    twoSqrtN(cen);
     
     
     
