@@ -1,20 +1,16 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   Link.h
- * Author: Jason
- *
- * Created on May 13, 2021, 10:23 AM
+    Author: Dr. Mark E. Lehr
+    Date:   March 29th, 2021  1:12pm
+    Purpose:Linked from first principles
  */
 
 #ifndef LINK_H
 #define LINK_H
 
-
+struct Link
+{
+    int data;     //Some type of data
+    Link *lnkNext; //Next Link in the chain
+};
 
 #endif /* LINK_H */
-
