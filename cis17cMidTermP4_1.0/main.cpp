@@ -17,7 +17,7 @@
 
 using namespace std;
 // this will return n^1/2 
-void sqrtN(long s, long m, long h, long d, long mon, long y, long cen, long dec)
+void sqrtN(long)
 {
     cout << "n^1/2" << endl;
     cout << pow(s, 2) << endl; 
@@ -56,23 +56,9 @@ void logN(long s, long m, long h, long d, long mon, long y, long cen, long dec)
     cout << s*log(dec) << endl << endl; 
 }
 
-void sqrtN(long num)
-{
-    cout << sqrt(num) << endl << endl;
-}
-
-void sqrt2logN(long num)
-{
-    
-}
-
-void twoSqrtN(long num)
-{
-    cout << log2(num) << endl;
-}
-
 
 int main(int argc, char** argv) {
+
 
     // in milliseconds 
     unsigned long s = 1000;
@@ -111,7 +97,9 @@ int main(int argc, char** argv) {
     twoSqrtN(cen);
     
     
-    
+
+
+
     
     
 

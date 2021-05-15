@@ -42,16 +42,12 @@ int main(int argc, char* argv[])
     srand(static_cast<unsigned int>(time(0)));
 
     // The size of the array  
-    const int SIZE = 50000;
+    const int SIZE = 10000000;
     // The search query size 
     const int QSIZE = 50;
     // The size of the loop count for searches
     const int TSIZE = 100000;
     const int LSIZE = 1000;
-    
-    
-    
-
     
     string* randWords = fillary(SIZE, 20);
     string* randWords2 = arrayCopy(randWords, SIZE);
@@ -70,7 +66,7 @@ int main(int argc, char* argv[])
     //cout << "Searching for key:  " << key << endl;
     double beg = time(0);
     // for loop for 10,000 then time it
-    //cout << "Linear search :" << endl;
+    cout << "Linear search :" << endl;
     for (int i = 0; i < LSIZE; i++)
     {
         for (int j = 0; j < QSIZE; j++)
@@ -79,13 +75,13 @@ int main(int argc, char* argv[])
         }
     }
     double end = time(0);
-    //cout<<"For N = " << SIZE <<" Linear Search Takes " << setprecision(9) << 
-    //      ((end-beg)/LSIZE)/QSIZE<<" Seconds " << "for " << LSIZE << " Searches" <<endl;
+    cout<<"For N = " << SIZE <<" Linear Search Takes " << setprecision(9) << 
+          ((end-beg)/LSIZE)/QSIZE<<" Seconds " << "for " << LSIZE << " Searches" <<endl;
     cout << ((end-beg)/LSIZE)/QSIZE << endl;
     //selSort(randWords2, SIZE);
     sort(randWords2, randWords2 + SIZE );
     
-    //cout << "Binary search :" << endl; 
+    cout << "Binary search :" << endl; 
     beg = time(0);
     // 1,000,000 times to search for 50 keys
     for (int i = 0; i < TSIZE; i++ )
@@ -97,12 +93,12 @@ int main(int argc, char* argv[])
         }
     }
     end = time(0);
-   // cout<<"For N = " << SIZE <<" Binary Search Takes " << setprecision(9) << 
-    //      ((end-beg)/TSIZE)/QSIZE<<" Seconds " << "for " << TSIZE << " Searches" <<endl;
+    cout<<"For N = " << SIZE <<" Binary Search Takes " << setprecision(9) << 
+          ((end-beg)/TSIZE)/QSIZE<<" Seconds " << "for " << TSIZE << " Searches" <<endl;
     cout << ((end-beg)/TSIZE)/QSIZE << endl;
     hasher(randWords3, hashList, SIZE);
     
-   // cout << "Hash search :" << endl; 
+    cout << "Hash search :" << endl; 
     beg = time(0);
     for (int i = 0; i < TSIZE; i++)
     {
@@ -112,9 +108,9 @@ int main(int argc, char* argv[])
         }
     }
     end = time(0);
-    //cout<<"For N = " << SIZE <<" Hash Search Takes " << setprecision(9) << 
-    //      ((end-beg)/TSIZE)/QSIZE<<" Seconds " << "for " << TSIZE << " Searches" <<endl;
-   cout << ((end-beg)/TSIZE)/QSIZE << endl;
+    cout<<"For N = " << SIZE <<" Hash Search Takes " << setprecision(9) << 
+          ((end-beg)/TSIZE)/QSIZE<<" Seconds " << "for " << TSIZE << " Searches" <<endl;
+    cout << ((end-beg)/TSIZE)/QSIZE << endl;
 //   cout << "Key:     " <<key<<endl;
 //   cout << "Key:     " << endl;
 //   cout << " 1. RS-Hash Function Value:   " <<setw(15)<< RSHash(key)<<endl;
