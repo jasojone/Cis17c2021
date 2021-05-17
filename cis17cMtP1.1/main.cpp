@@ -17,11 +17,11 @@ int main(int argc, char** argv)
     srand(static_cast<unsigned int>(time(0)));
     
     //Declare all Variables Here
-    const int SIZE=80000000;
+    const int SIZE=100000000;
     int *array = new int[SIZE];
     int lowRng=0,highRng=SIZE;
-    int loopCnt = 100000;
-    int answer = 0;
+    int loopCnt = 1000000;
+    int operations = 0;
     //double beg = time(0);
     //double endd = time(0);
     clock_t t;
@@ -38,7 +38,7 @@ int main(int argc, char** argv)
     for(int i = 0; i < loopCnt; ++i) 
     {
         int value=rand()%(highRng-lowRng+1)+lowRng;
-        answer += binSrch(array,SIZE,value);
+        operations += binSrch(array,SIZE,value);
     }
     
     // End time 
@@ -51,7 +51,7 @@ int main(int argc, char** argv)
     //Output
     cout<<"Array Size:      "<<SIZE<<endl;
     cout<<"Loop Count:      "<<loopCnt<<endl;
-    cout<<"Operations:      "<<answer / loopCnt<<endl;
+    cout<<"Operations:      "<<operations / loopCnt<<endl;
     cout<<"Average Time:    "<<time_taken / loopCnt<<" Seconds"<<endl;
    // cout<<"Average Time:    "<<(endd-beg) / loopCnt<<" Seconds"<<endl;
    // cout<<"Average Time:    "<<duration.count() / loopCnt<<" Micro Seconds"<<endl;
@@ -62,7 +62,7 @@ int main(int argc, char** argv)
 }
 int  binSrch(int a[],int n, int val)
 {
-    //Initialize Vars
+    //Declare the Variables 
     int lowEnd=0;
     int highEnd=n-1;
     int ops = 3;

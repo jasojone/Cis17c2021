@@ -55,7 +55,7 @@ int main ()
         }
     }
     
-    cout << "Simulations of card combinations: " << endl;
+    cout << "Simulated Probability of Card Combinations: " << endl;
     cout << "One Pair:       " << onePair/loop * 100 << "%" << endl;
     cout << "Two Pair:       " << twoPair/loop * 100 << "%" << endl;
     cout << "Three Pair:     " << three/loop * 100 << "%" << endl;

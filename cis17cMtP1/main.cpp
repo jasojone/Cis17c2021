@@ -18,11 +18,11 @@ int main(int argc, char** argv)
     srand(static_cast<unsigned int>(time(0)));
     
     //Declare all Variables Here
-    const int SIZE=1000000;
+    const int SIZE=2500000;
     int *array = new int[SIZE];
     int lowRng=0,highRng=SIZE;
     int loopCnt = 10000;
-    int answer = 0;
+    unsigned long operations = 0;
     double beg = time(0);
     double endd = time(0);
     
@@ -38,7 +38,7 @@ int main(int argc, char** argv)
     for(int i = 0; i < loopCnt; ++i) 
     {
         int value=rand()%(highRng-lowRng+1)+lowRng;
-        answer += linSrch(array,SIZE,value);
+        operations += linSrch(array,SIZE,value);
     }
     // End time 
     endd = time(0);
@@ -48,7 +48,7 @@ int main(int argc, char** argv)
     //Output results
     cout<<"Array Size:      "<<SIZE<<endl;
     cout<<"Loop Count:      "<<loopCnt<<endl;
-    cout<<"Operations:      "<<answer / loopCnt<<endl;
+    cout<<"Operations:      "<<operations / loopCnt<<endl;
     cout<<"Average Time:    "<<(endd-beg) / loopCnt<<" Seconds"<<endl;
     cout<<"Average Time:    "<<duration.count() / loopCnt<<" Micro Seconds"<<endl;
     
@@ -59,7 +59,7 @@ int main(int argc, char** argv)
 int  linSrch(int a[],int n, int val)
 {
   
-    int ops = 0;
+    unsigned long ops = 0;
     
     //Loop until value found
     for(int indx=0;indx<n;indx++)
