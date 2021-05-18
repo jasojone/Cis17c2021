@@ -38,10 +38,10 @@ int main(int argc, char** argv) {
         Object o(SIZE);
         operations += svl.push(o);
     }
-    duration<float> dur = system_clock::now() - start;
+    duration<float> t = system_clock::now() - start;
     cout<<"Object Size:     "<<loopCnt<<" Pushed"<<endl;
     cout<<"Operations:      "<<operations<<endl;
-    cout<<"Time to Push:    "<<dur.count()<<" Seconds"<<endl;;
+    cout<<"Time to Push:    "<<t.count()<<" Seconds"<<endl;
 
     return 0;
 }
