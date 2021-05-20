@@ -27,7 +27,6 @@ int main(int argc, char** argv)
     
     int base, 
         exponent;
-    
 //    float ops1, 
 //          ops2;
     
@@ -76,6 +75,5 @@ float recOlogN(float num, int exponent)
 //        ops2 += 3;
         return recOlogN(num, exponent-1) * num;
     }
-    
     else return 1;
 }

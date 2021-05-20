@@ -27,7 +27,7 @@ using namespace chrono;
 int main(int argc, char** argv) 
 {
     const int SIZE = 2;
-    int loopCnt = 500;
+    int loopCnt = 10000;
     long long operations = 0LL;
     SimpleVector<Object> svp;
     time_point<system_clock> start, end;
