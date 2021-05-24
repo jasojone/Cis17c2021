@@ -25,7 +25,7 @@ int main(int argc, char** argv)
 {
 
     float x = atan(1);
-    cout << c(x) << endl;
+    cout << "x = arctan(1) = " << c(x) << endl;
     return 0;
 }
 

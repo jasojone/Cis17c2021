@@ -8,6 +8,8 @@
 #include <ctime>//Set the seed
 #include <iostream>//I/O
 #include <map>
+#include <algorithm>
+
 using namespace std;
 
 //No Global Constants
@@ -58,63 +60,57 @@ int *copy(const int *a,int n){
     return b;
 }
 
-int *mode(const int *array,int arySize){
+int *mode(const int *array,int arySize)
+{
+    map<int,int> m;
+    int max = 0;
+    int modCnt = 0;
+    
+    // Add elements from array to map
+    for(int i = 0; i < arySize; i++)
+    {
+        m[array[i]]++;
+    }
 
-    //Copy the array
-    int *ary=copy(array,arySize);
-    //Sort the ary
-    mrkSort(ary,arySize);
-    //Sort the copy
-    //Find the max Freq
-    // the key will be the value 
-    
-    
-    
-    //you have a for loop that is used to insert values from the arry into the map
-    //If the value in the arry isnt in the map yet add to made and set its freq to 1 if already
-    //in map update the freq by one
-    map<int, int>::itr itr = myMap.find(ary[i]);
-    
-    int count=0,maxFreq=0;
-    for(int i=0;i<arySize-1;i++){
-        if(ary[i]==ary[i+1]){
-            count++;
-            if(maxFreq<count)maxFreq=count;
-        }else{
-            count=0;
+    // Get max freq
+    for (map<int,int>::iterator it=m.begin(); it!=m.end(); ++it)
+    {
+        if(max < it->second)
+        {
+            max = it->second;
         }
     }
-    //Find the number of modes
     
-    // for loop find the biggest frequency in the map
-    // max to find the highest frequency 
-    count=0;
-    int nModes=0;
-    for(int i=0;i<arySize-1;i++){
-        if(ary[i]==ary[i+1]){
-            count++;
-            if(maxFreq==count)nModes++;
-        }else{
-            count=0;
+    //Get number of modes
+    for (map<int,int>::iterator it=m.begin(); it!=m.end(); ++it)
+    {
+        if(it->second == max)
+        {
+            modCnt++;
         }
     }
+    
     //Allocate the mode array
-    int *modeAry=new int[nModes+2];
+    int *modeAry=new int[modCnt+2];
+    
+    //Show the number of modes
+    modeAry[0]=modCnt;
+    modeAry[1]=max;
+    int idx = 2;
+    
     //Fill the mode array
-    modeAry[0]=nModes;
-    modeAry[1]=maxFreq+1;
-    count=0;
-    int indx=2;
-    for(int i=0;i<arySize-1;i++){
-        if(ary[i]==ary[i+1]){
-            count++;
-            if(maxFreq==count)modeAry[indx++]=ary[i];
-        }else{
-            count=0;
+    for(int i = 0; i < arySize; ++i)
+    {
+        int count = 1;
+        for (map<int,int>::iterator it=m.begin(); it!=m.end(); ++it)
+        {
+            if(it->second == max)
+            {
+                modeAry[idx++]=it->first;
+            }
         }
     }
-    //Delete the allocated copy and return
-    delete []ary;
+    //Return and terminate
     return modeAry;
 }
 

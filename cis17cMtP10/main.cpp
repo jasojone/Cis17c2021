@@ -21,9 +21,12 @@ float fg(float);
 
 int main(int argc, char** argv) 
 {
-    
-    int x = 1;
-    cout << fg(x) << endl;
+
+    for (int x = -10; x <= 10; x++)
+    {
+        cout << "g(" << x / 10.0 << ") = ";
+        cout <<  fg(x / 10.0) << endl;
+    }
     return 0;
 }
 
@@ -36,5 +39,6 @@ float fg(float x)
     
     x /= 2;
     float fgx = fg(x);
-    return (2*fgx) / (1+pow(fgx, 2));
+    return 2*fgx / (1+pow(fgx, 2));
 }
+
