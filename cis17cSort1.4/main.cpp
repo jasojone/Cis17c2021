@@ -8,7 +8,8 @@ using namespace chrono;
 typedef long long ll;
 //Function Prototypes Here
 void fillAry(int [],int,int,int);
-int shellSort(int arr[], int n, ll &ops);
+void heapify(int arr[], int n, int i, ll &ops);
+void heapSort(int arr[], int n, ll &ops);
 void swap(int *a, int *b);
 
 //Program Execution Begins Here
@@ -34,7 +35,7 @@ int main(int argc, char** argv)
     {
         fillAry(array,SIZE,highRng,lowRng);
         start = system_clock::now();
-        shellSort(array, SIZE, ops);
+        heapSort(array, SIZE, ops);
         //operation += selSort(array,SIZE);
         t += system_clock::now() - start;
     }
@@ -50,37 +51,60 @@ int main(int argc, char** argv)
     return 0;
 }
 
-int shellSort(int arr[], int n, ll &ops)
+// To heapify a subtree rooted with node i which is
+// an index in arr[]. n is size of heap
+void heapify(int arr[], int n, int i, ll &ops)
 {
-    // Start with a big gap, then reduce the gap
-    for (int gap = n/2; gap > 0; gap /= 2)
+    ops += 13;
+    int largest = i; // Initialize largest as root
+    int l = 2 * i + 1; // left = 2*i + 1
+    int r = 2 * i + 2; // right = 2*i + 2
+ 
+    // If left child is larger than root
+    if (l < n && arr[l] > arr[largest])
+    {
+        ops += 7;
+        largest = l;
+    }
+ 
+    // If right child is larger than largest so far
+    if (r < n && arr[r] > arr[largest])
+    {
+        ops += 7;
+        largest = r;
+    }
+    
+    // If largest is not root
+    if (largest != i) 
+    {
+        ops += 3;
+        swap(arr[i], arr[largest]);
+ 
+        // Recursively heapify the affected sub-tree
+        heapify(arr, n, largest, ops);
+    }
+}
+ 
+// main function to do heap sort
+void heapSort(int arr[], int n, ll &ops)
+{
+    ops += 3;
+    // Build heap (rearrange array)
+    for (int i = n / 2 - 1; i >= 0; i--)
     {
         ops += 5;
-        // Do a gapped insertion sort for this gap size.
-        // The first gap elements a[0..gap-1] are already in gapped order
-        // keep adding one more element until the entire array is
-        // gap sorted
-        for (int i = gap; i < n; i += 1)
-        {
-            ops += 9;
-            // add a[i] to the elements that have been gap sorted
-            // save a[i] in temp and make a hole at position i
-            int temp = arr[i];
- 
-            // shift earlier gap-sorted elements up until the correct
-            // location for a[i] is found
-            int j;           
-            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
-            {
-                ops += 12;
-                arr[j] = arr[j - gap];
-            }
-            ops += 3;
-            //  put temp (the original a[i]) in its correct location
-            arr[j] = temp;
-        }
+        heapify(arr, n, i, ops);
     }
-    return 0;
+ 
+    // One by one extract an element from heap
+    for (int i = n - 1; i > 0; i--) {
+        ops += 7;
+        // Move current root to end
+        swap(arr[0], arr[i]);
+ 
+        // call max heapify on the reduced heap
+        heapify(arr, i, 0, ops);
+    }
 }
 
 void fillAry(int a[],int n,int hr,int lr)

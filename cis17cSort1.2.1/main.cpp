@@ -18,7 +18,7 @@ int main(int argc, char** argv)
     srand(static_cast<unsigned int>(time(0)));
     
     //Declare all Variables Here
-    const int SIZE=10000;
+    const int SIZE=1000;
     int *array = new int[SIZE];
     //int n = sizeof(array) / sizeof(array[0]);
     int lowRng=0,highRng=SIZE;
