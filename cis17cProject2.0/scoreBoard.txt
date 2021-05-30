@@ -1,0 +1,33 @@
+66,Flash
+84,Omar
+89,Ansh
+113,Superman
+137,Mark
+160,Mickey
+162,Mark
+186,Norco
+188,Cal Poly
+192,Taylor
+197,Mark
+208,Jason Jones
+232,Jay
+245,Batman
+258,Goofy
+295,Jason
+373,JJ
+374,Taylor
+390,Omar
+397,Mark
+410,Costco
+442,Superman
+449,Dr.Lehr
+473,JJ
+473,Spiderman
+506,Mark
+654,Jason
+695,Mark
+759,JJ
+811,JJ
+916,Jas
+966,Batman
+1186,Omar
