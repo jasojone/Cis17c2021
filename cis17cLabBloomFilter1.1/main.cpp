@@ -1,116 +1,87 @@
-// Pulled from G for G 
-//
-//
+#include <iostream>
+#include <cmath>
 
-
-#include <bits/stdc++.h>
-#define ll long long
 using namespace std;
- 
-// hash 1
-int h1(string s, int arrSize)
+
+unsigned int ELFHash(const std::string& str)
 {
-    ll int hash = 0;
-    for (int i = 0; i < s.size(); i++)
+    unsigned int hash = 0;
+    unsigned int x = 0;
+
+    for (std::size_t i = 0; i < str.length(); i++)
     {
-        hash = (hash + ((int)s[i]));
-        hash = hash % arrSize;
+        hash = (hash << 4) + str[i];
+        if ((x = hash & 0xF0000000L) != 0)
+        {
+            hash ^= (x >> 24);
+        }
+        hash &= ~x;
     }
+
     return hash;
 }
- 
-// hash 2
-int h2(string s, int arrSize)
+
+unsigned int APHash(const std::string& str)
 {
-    ll int hash = 1;
-    for (int i = 0; i < s.size(); i++)
+    unsigned int hash = 0xAAAAAAAA;
+
+    for (std::size_t i = 0; i < str.length(); i++)
     {
-        hash = hash + pow(19, i) * s[i];
-        hash = hash % arrSize;
+        hash ^= ((i & 1) == 0) ? ((hash << 7) ^ str[i] * (hash >> 3)) :
+            (~((hash << 11) + (str[i] ^ (hash >> 5))));
     }
-    return hash % arrSize;
-}
- 
-// hash 3
-int h3(string s, int arrSize)
-{
-    ll int hash = 7;
-    for (int i = 0; i < s.size(); i++)
-    {
-        hash = (hash * 31 + s[i]) % arrSize;
-    }
-    return hash % arrSize;
-}
- 
-// hash 4
-int h4(string s, int arrSize)
-{
-    ll int hash = 3;
-    int p = 7;
-    for (int i = 0; i < s.size(); i++) {
-        hash += hash * 7 + s[0] * pow(p, i);
-        hash = hash % arrSize;
-    }
+
     return hash;
 }
- 
- 
-// loookup operation
-bool lookup(bool* bitarray, int arrSize, string s)
+
+bool search(bool* bitarray, int arrSize, string s)
 {
-    int a = h1(s, arrSize);
-    int b = h2(s, arrSize);
-    int c = h3(s, arrSize);
-    int d = h4(s, arrSize);
- 
-    if (bitarray[a] && bitarray[b] && bitarray
-        && bitarray[d])
-        return true;
-    else
-        return false;
+    return (bitarray[ELFHash(s) % arrSize] && bitarray[APHash(s) % arrSize]);
 }
- 
-// insert operation
-void insert(bool* bitarray, int arrSize, string s)
+
+void push(bool* bitarray, int arrSize, string s)
 {
-    // check if the element in already present or not
-    if (lookup(bitarray, arrSize, s))
-        cout << s << " is Probably already present" << endl;
-    else
-    {
-        int a = h1(s, arrSize);
-        int b = h2(s, arrSize);
-        int c = h3(s, arrSize);
-        int d = h4(s, arrSize);
- 
-        bitarray[a] = true;
-        bitarray[b] = true;
-        bitarray[c] = true;
-        bitarray[d] = true;
- 
-        cout << s << " inserted" << endl;
-    }
+        bitarray[ELFHash(s) % arrSize] = true;
+        bitarray[APHash(s) % arrSize] = true;
+
+        cout << s << " added to bloom filter" << endl;
 }
- 
-// Driver Code
+
 int main()
 {
-    bool bitarray[100] = { false };
-    int arrSize = 100;
-    string sarray[33]
-        = { "abound",   "abounds",       "abundance",
-            "abundant", "accessable",    "bloom",
-            "blossom",  "bolster",       "bonny",
-            "bonus",    "bonuses",       "coherent",
-            "cohesive", "colorful",      "comely",
-            "comfort",  "gems",          "generosity",
-            "generous", "generously",    "genial",
-            "bluff",    "cheater",       "hate",
-            "war",      "humanity",      "racism",
-            "hurt",     "nuke",          "gloomy",
-            "facebook", "geeksforgeeks", "twitter" };
-    for (int i = 0; i < 33; i++) {
-        insert(bitarray, arrSize, sarray[i]);
+    const int arrSize = 6;
+    bool bitarray[arrSize];
+    int falsePosCnt = 0;
+
+    for (int i = 0; i < arrSize; i++)
+        bitarray[i] = false;
+    
+    string nArrayIn[4] = { "mark", "jason", "ansh", "omar" };
+    for (int i = 0; i < 4; i++) {
+        push(bitarray, arrSize, nArrayIn[i]);
     }
+
+    string nArrayNotIn[4] = { "joe", "john", "gaddis", "ondol" };
+    for (int i = 0; i < 4; i++) {
+        if (search(bitarray, arrSize, nArrayNotIn[i]))
+            falsePosCnt++;
+    }
+    
+    // simulating the values 
+    int x = 0;
+    cout << "\n\n4 names searched that we know do not exist in the bit vector" << endl;
+    cout << "the number of potential collisions: " << falsePosCnt << endl;
+    x = falsePosCnt / 4.0 * 100;
+    cout << "the simulated false positive percentage is: " << x << "%" << endl;
+    
+    // calculating the expected values  
+    int n = arrSize;
+    int m = 4;
+    int k = 2;
+    int p = 0;
+    
+    //P = (1-e^-km/n)^k*100 where P = percentage probability of false positives.
+    p = pow(1.0 - exp(-k * m / static_cast<double>(n)), static_cast<double>(k)) * 100;
+    cout << "the calculated probability of a false positive: " << p << "%" << endl;
     return 0;
 }
