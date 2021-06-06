@@ -39,7 +39,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/Deck.o \
 	${OBJECTDIR}/Game.o \
 	${OBJECTDIR}/Player.o \
-	${OBJECTDIR}/ScoreTree.o \
 	${OBJECTDIR}/main.o
 
 
@@ -86,11 +85,6 @@ ${OBJECTDIR}/Player.o: Player.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Player.o Player.cpp
-
-${OBJECTDIR}/ScoreTree.o: ScoreTree.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ScoreTree.o ScoreTree.cpp
 
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}

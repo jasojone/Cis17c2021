@@ -12,11 +12,11 @@
 
 
 /******************************************************************************\
-  BloomFilter Class                                                           
-  This Class will check to see if a player has played the game before by 
-  storing all usernames in a bloom filter bit vector. If the user has played
-  a welcome back will be displayed. If the user has not played the rules 
-  menu option will be encouraged                                            
+BloomFilter Class                                                           
+This Class will check to see if a player has played the game before by 
+storing all usernames in a bloom filter bit vector. If the user has played
+a welcome back will be displayed. If the user has not played the rules 
+menu option will be encouraged                                            
 \******************************************************************************/
 #define BFarrSize 512
 
@@ -31,15 +31,19 @@ private:
 public:
     BloomFilter();
     ~BloomFilter();
-    void setBFname(string s);
     // search the bloom filter for user case
     bool bfSearch(string s);
     // set the bloom filter in the event there is a new user case
     void bfPush(string s);
+    // elf hash function 
     unsigned int ELFHash(const std::string& str);
+    // aph hash function
     unsigned int APHash(const std::string& str);
     };
-
+/******************************************************************************\
+ BloomFilter constructor                                                           
+ overloaded constructor that creates the bit array                                   
+\******************************************************************************/
     inline BloomFilter::BloomFilter()
     {
         bitarray = new bool[BFarrSize];
@@ -47,6 +51,10 @@ public:
         bitarray[i] = false;
         getBloomData();
     }
+/******************************************************************************\
+ BloomFilter destructor                                                           
+ The destructor will delete the bit vector                                      
+\******************************************************************************/
     inline BloomFilter::~BloomFilter()
     {
         pushBloomData();

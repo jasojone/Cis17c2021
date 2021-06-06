@@ -6,8 +6,8 @@
  */
 #include "BloomFilter.h"
 /******************************************************************************\
-bloomFilterPush                                                           
-
+ bfSearch
+ This function will search the bit vector for the event of a positive flag set                                                           
 \******************************************************************************/
 bool BloomFilter::bfSearch(string s)
 {
@@ -15,8 +15,8 @@ bool BloomFilter::bfSearch(string s)
 }
 
 /******************************************************************************\
-bloomFilterPush                                                           
-
+ bfPush                                                           
+ This function will push the hashed name to the bitvector setting two flags 
 \******************************************************************************/
 void BloomFilter::bfPush(string s)
 {
@@ -24,6 +24,9 @@ void BloomFilter::bfPush(string s)
    bitarray[APHash(s) % BFarrSize] = true;
 }
 
+/******************************************************************************\
+ ELFHash                                                           
+\******************************************************************************/
 unsigned int BloomFilter::ELFHash(const std::string& str)
 {
     unsigned int hash = 0;
@@ -42,6 +45,9 @@ unsigned int BloomFilter::ELFHash(const std::string& str)
     return hash;
 }
 
+/******************************************************************************\
+ APHash                                                           
+\******************************************************************************/
 unsigned int BloomFilter::APHash(const std::string& str)
 {
     unsigned int hash = 0xAAAAAAAA;
@@ -55,6 +61,10 @@ unsigned int BloomFilter::APHash(const std::string& str)
     return hash;
 }
 
+/******************************************************************************\
+ getBloomData                                                           
+ This function populate the bitvector from the binary file save data.  
+\******************************************************************************/
 void BloomFilter::getBloomData()
 {
     ifstream file ("bloomFilter.bin", ios::binary|ios::in);
@@ -62,6 +72,10 @@ void BloomFilter::getBloomData()
     file.close();
 }
 
+/******************************************************************************\
+ bfPush                                                           
+ This function will save the bloom filter bitvector to a binary file  
+\******************************************************************************/
 void BloomFilter::pushBloomData()
 {
     ofstream file ("bloomFilter.bin", ios::binary|ios::out);

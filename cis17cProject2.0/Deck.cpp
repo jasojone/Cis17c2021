@@ -57,8 +57,8 @@ void Deck::dealCards(Player &currPlayer)
 /*****************************************************************************\
 merge  
 
-Merges two subvectorss of vec[] First subvectors is vec[l..m] Second subvectors is 
-vec[m+1..r]
+Merges two subvectors of vec[] First subvectors is vec[l..m] Second subvectors 
+is vec[m+1..r]
 \*****************************************************************************/
 void Deck::merge(vector<Card> &vec, int l, int m, int r)
 {
@@ -114,7 +114,6 @@ void Deck::merge(vector<Card> &vec, int l, int m, int r)
         k++;
     }
 }
-
 
 /*****************************************************************************\
 mergeSort

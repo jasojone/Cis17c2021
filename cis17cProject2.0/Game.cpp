@@ -60,8 +60,6 @@ void Game::mainMenu()
             case 4: // display the rules.
             {
                 sBoard->printScoreRecords();
-                //sBoard->printScoreRecords(sBoard->getRoot());
-                //printScoreRecords(sBoard);
                 break;
             }
             case 5: // end the game and exit.
@@ -576,10 +574,7 @@ void Game::highScoresBoard()
         cout << "Score: " << itr->first << endl << endl;
     }
 }
-/****************************************************************************\
- scoreBoard
- This function will display the top ten shortest and longest games
-\****************************************************************************/
+
 
 
 /****************************************************************************\
@@ -651,7 +646,8 @@ void Game::readScoresFromFile()
             // Populate the map from the files saved scores.
             pair<int, string> tmp = make_pair(curScore, curName);
             highScores.insert(tmp);    
-
+            
+            // insert the score and name into the tree.
             sBoard->insert(curScore, curName); 
         }
     }
@@ -689,18 +685,6 @@ void Game::writeScoresToFile()
     }
     outFile.close();
 }
-
-/****************************************************************************\
-sortTree
-\****************************************************************************/
-/*void Game::printScoreRecords(ScoreTree *root)
-{
-    if (root == NULL)
-        return;
-    printScoreRecords(root->left);
-    cout << root->name << "  " << root->score;
-    printScoreRecords(root->right);
-}*/
 
 /****************************************************************************\
 displayWar                                                                 

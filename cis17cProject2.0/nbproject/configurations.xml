@@ -23,7 +23,6 @@
       <itemPath>Deck.cpp</itemPath>
       <itemPath>Game.cpp</itemPath>
       <itemPath>Player.cpp</itemPath>
-      <itemPath>ScoreTree.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -65,8 +64,6 @@
       <item path="Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Player.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="ScoreTree.cpp" ex="false" tool="0" flavor2="0">
       </item>
       <item path="ScoreTree.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -112,8 +109,6 @@
       <item path="Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Player.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="ScoreTree.cpp" ex="false" tool="0" flavor2="0">
       </item>
       <item path="ScoreTree.h" ex="false" tool="3" flavor2="0">
       </item>

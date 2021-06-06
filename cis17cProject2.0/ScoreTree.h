@@ -13,7 +13,11 @@
 
 #ifndef SCORETREE_H
 #define SCORETREE_H
-
+/******************************************************************************\
+ Node Struct                                                           
+ This struct will contain the elements and algorithm of the tree. 
+ Attributes: name, score, left and right pointers                                     
+\******************************************************************************/
 struct Node
 {
     int score;
@@ -28,6 +32,11 @@ struct Node
         left = NULL;
         right = NULL;
     }
+ /******************************************************************************\
+ insert                                                           
+ This function will be used to insert the nodes upon call. The name and score
+ will be passed into the insert function to create the nodes on the tree                                  
+\******************************************************************************/
 
     void insert(Node *player)
     {
@@ -55,7 +64,11 @@ struct Node
         }
     }
 };
-
+/******************************************************************************\
+ ScoreTree Class                                                           
+ This class will hold the elements and algorithm of the tree. The tree is a 
+ simple binary tree that will be used to hold the user name and score                                    
+\******************************************************************************/
 class ScoreTree
 {
 private:
@@ -77,10 +90,12 @@ public:
             root->insert(player);
         }
     }
-    //Node* getRoot()
-    //{
-    //    return root;
-    //}
+
+/****************************************************************************\
+ printScoreRecords
+ This function will display the entire score records from the file to a map 
+  to a tree where is will be recursivly sorted   
+\****************************************************************************/
     void printScoreRecords()
     {
         printScoreRecords(root);
