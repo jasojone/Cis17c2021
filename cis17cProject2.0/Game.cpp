@@ -5,22 +5,24 @@
  * Created on April 4, 2021, 9:04 PM
  * 
  * Game.cpp will contain the games main loop and all the games functions
+ * Add:
+ * graphs
  */
 #include "Game.h"
 
-  /****************************************************************************\
-  * mainMenu                                                                   *
-  * This function will display the main menu. The use will have options to     *
-  * play war, see the rules, check the score board and exit the game.          *
-  * Variables: userChoice holds the users menu choice, userName holds the user *
-  * name for high scores,                                                      *
-  \****************************************************************************/
+/****************************************************************************\
+mainMenu                                                                   
+This function will display the main menu. The use will have options to     
+play war, see the rules, check the score board and exit the game.          
+Variables: userChoice holds the users menu choice, userName holds the user 
+name for high scores,                                                      
+\****************************************************************************/
 void Game::mainMenu()
 {
     srand(time(0)); // Random seed for the shuffle algorithm. 
     int userChoice = 0; // Sets the user choice outside the range of the menu.
     
-    while(userChoice != 4) 
+    while(userChoice != 5) 
     {
         //Main menu output
         cout << "---------------------------\n";
@@ -28,8 +30,9 @@ void Game::mainMenu()
         cout << "---------------------------\n";
         cout << "1) Play WAR\n";
         cout << "2) Rules\n";
-        cout << "3) Score Board\n";
-        cout << "4) Exit Game ";
+        cout << "3) High Score Board\n";
+        cout << "4) Score Records\n";
+        cout << "5) Exit Game ";
         cout << string(3, '\n'); //moves menu up a bit from the bottom   
         
         // Takes user input for main menu uses input validation.
@@ -44,19 +47,24 @@ void Game::mainMenu()
                 gameLoop();
                 break;
             }
-
             case 2: // display the rules.
             {
                 rules();
                 break;
             }
-
             case 3: // display the Score Board.
             {
-                scoreBoard();
+                highScoresBoard();
                 break;
             }
-            case 4: // end the game and exit.
+            case 4: // display the rules.
+            {
+                sBoard->printScoreRecords();
+                //sBoard->printScoreRecords(sBoard->getRoot());
+                //printScoreRecords(sBoard);
+                break;
+            }
+            case 5: // end the game and exit.
             {
                 cout << string(5, '\n');
                 cout << "Thank you for playing,\n"<< endl;
@@ -67,17 +75,17 @@ void Game::mainMenu()
     }
 }
 
-  /****************************************************************************\
-  * gameLoop                                                                   *
-  * This function holds the game loop and logic for the game. The game loop    *
-  * will run on a do while loop with an end of game condition gameover true    *
-  \****************************************************************************/
+/****************************************************************************\
+gameLoop                                                                   
+This function holds the game loop and logic for the game. The game loop    
+will run on a do while loop with an end of game condition game over true    
+\****************************************************************************/
 void Game::gameLoop()
 {
     // Deck class instantiation refer to Deck.h for build and implementation.
     Deck gameDeck; 
     
-    // Creating the instance of the player and cpu player, refer to the 
+    // Creating the instance of the player and CPU player, refer to the 
     // Player.h for build and implementation.
     Player p1;
     Player cpu;
@@ -98,8 +106,28 @@ void Game::gameLoop()
     cin.ignore();
     // gather the user input for the userName.
     getline(cin, userName);
+    // create an instance of the Bloom filter
+    BloomFilter BF;
+
+    // if the username hash has set the bitvector then check the map to verify if 
+    if (BF.bfSearch(userName)) {
+        for (auto& it : highScores) {
+            if (it.second == userName) {
+                cout << "Welcome back " << userName << ", get ready for War!" << endl;
+            }
+        }
+    }
+    else {
+        // push the username to the bloom filter 
+        BF.bfPush(userName);
+        cout << "Welcome, " << userName << " to War the Card game,\nPlease read the rules before playing." << endl;
+    }
+    
+
     // use the setter to set name.
     p1.setName(userName);
+    
+    
     
     cout << "Dealing Cards...\n\n";
     
@@ -116,8 +144,6 @@ void Game::gameLoop()
     // The do while loop is the main game loop that will contain all the game logic. 
     do
     {
-
-
         countAces(p1);
         // Output the card total for each player.
         cout << "You have " << p1.cardsWon.size()+p1.handInPlay.size() << " cards total\n";
@@ -188,43 +214,8 @@ void Game::gameLoop()
         
         // if the cards are equal then go to war.
         else
-        {   
-            // The war queue will hold the face two war cards 
-            // and the two face down cards
-            // Push the war cards onto the war queue and pop them
-            // off the hands to move onto the war offerings
-            p1.war.push(p1Top);
-            p1.handInPlay.pop();
-            cpu.war.push(cpuTop);
-            cpu.handInPlay.pop();
-            
-            // condition for war within a war.
-            while ((p1Top.cPower == cpuTop.cPower) && gameOver == false)
-            {
-                // temporarily change the top cards to carry on with the war
-                // by not continuing the while loop. 
-                p1Top.cPower = -1;
-                cpuTop.cPower = -2;
-                
-                // check if p1 has enough cards for war.
-                if (p1.handInPlay.size() + p1.cardsWon.size() <= 2)
-                {
-                cout << "You do not have Cards to go to war with.\n" << "You must forfeit the game." << endl;
-                gameOver = true; // end game loop.
-                }
-
-                // check if cpu has enough cards for war.
-                else if (cpu.handInPlay.size() + cpu.cardsWon.size() <= 2)
-                {
-                cout << "The CPU has no Cards to go to war with.\n" << "The CPU must forfeit the Game." << endl;
-                gameOver = true; // end game loop
-                }
-                // call war loop.
-                if(gameOver == false)
-                {
-                    war(p1, cpu, playCount);
-                }
-            }
+        {
+            war(p1, cpu, playCount, gameOver);
         }
         
         // check to see if players have cards to play the game.
@@ -251,6 +242,7 @@ void Game::gameLoop()
         // write the statistics to the multimap that holds the high scores to be 
         // written to the text file.
         highScores.insert(pair<int,string> (playCount, userName));
+        sBoard->insert(playCount, userName);
         cout << "Thank you for playing WAR\n";
         cout << "Press Enter to return to main" << endl;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -261,6 +253,7 @@ void Game::gameLoop()
         cout << "You lost the game of WAR" << endl;        
         cout << "This game took " << playCount << " hands to complete." << endl;
         highScores.insert(pair<int,string> (playCount, userName));
+        sBoard->insert(playCount, userName);
         cout << "Thank you for playing WAR\n";
         cout << "Press Enter to return to main" << endl;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -269,13 +262,39 @@ void Game::gameLoop()
     writeScoresToFile();      
 }
 
-  /****************************************************************************\
-  * war                                                                        *
-  * This function hold the logic of a war instance. When the cards are equal   * 
-  * the war function is called.                                                *
-  \****************************************************************************/
-void Game::war(Player &p1, Player &cpu, int &playCount)
+/****************************************************************************\
+war                                                                        
+This function hold the logic of a war instance. When the cards are equal   
+the war function is called.                                                
+\****************************************************************************/
+void Game::war(Player &p1, Player &cpu, int &playCount, bool &gameOver)
 {
+    // The war queue will hold the face two war cards 
+    // and the two face down cards
+    // Push the war cards onto the war queue and pop them
+    // off the hands to move onto the war offerings
+    p1.war.push(p1.handInPlay.top());
+    p1.handInPlay.pop();
+    cpu.war.push(cpu.handInPlay.top());
+    cpu.handInPlay.pop();
+
+    // check if p1 has enough cards for war.
+    if (p1.handInPlay.size() + p1.cardsWon.size() <= 2)
+    {
+    cout << "You do not have Cards to go to war with.\n" << "You must forfeit the game." << endl;
+    gameOver = true; // end game loop.
+    }
+
+    // check if cpu has enough cards for war.
+    else if (cpu.handInPlay.size() + cpu.cardsWon.size() <= 2)
+    {
+    cout << "The CPU has no Cards to go to war with.\n" << "The CPU must forfeit the Game." << endl;
+    gameOver = true; // end game loop
+    }
+    
+    if(gameOver == true)
+        return;
+    
     // Check current handsSize to see if any player still has cards 
     // to play with if not shuffle the cards won and repopulate 
     // the current hand stack
@@ -381,13 +400,17 @@ void Game::war(Player &p1, Player &cpu, int &playCount)
         p1.handInPlay.pop();
         cpu.handInPlay.pop();
     }
+    else
+    {   // recursive war loop
+        war(p1, cpu, playCount, gameOver);
+    }         
 }
-  /****************************************************************************\
-  * readInput                                                                  *
-  * Takes the user input and tests it to see if its an integer within range.   *
-  * Precondition: int userChoice 0                                             *
-  * Postcondition: dependent upon the user input, valid options are 1,2,3,4    *
-  \****************************************************************************/
+/****************************************************************************\
+readInput                                                                  
+Takes the user input and tests it to see if its an integer within range.   
+Precondition: int userChoice 0                                             
+Postcondition: dependent upon the user input, valid options are 1,2,3,4    
+\****************************************************************************/
 double Game::readInput(int userChoice)
 {
     // temporarily set choice to -1
@@ -401,7 +424,7 @@ double Game::readInput(int userChoice)
         cin >> choice;
         // if choice is an integer set loop condition to break and return the 
         // user selection.
-        if (choice <=4 && choice > 0 && cin.good())
+        if (choice <=5 && choice > 0 && cin.good())
         {
             //user input choice was valid.
             valid = true;
@@ -419,12 +442,12 @@ double Game::readInput(int userChoice)
     return (choice);
 }
 
-  /****************************************************************************\
-  * countAces                                                                  *
-  * This function will count the number of aces that the player has. This will *
-  * show the player that the aces may not be the determining factor of who     *
-  * will win the game of war.                                                  *
-  \****************************************************************************/
+/****************************************************************************\
+countAces                                                                  
+This function will count the number of aces that the player has. This will 
+show the player that the aces may not be the determining factor of who     
+will win the game of war.                                                  
+\****************************************************************************/
 void Game::countAces(Player p1)
 {
     // create a temporary card that will be used for the count algorithm.
@@ -446,10 +469,10 @@ void Game::countAces(Player p1)
     // display the total aces at the players disposal.
     cout << "You Have " << tmp << " Aces" << endl;
 }
-  /****************************************************************************\
-  * rules                                                                      *
-  * This function will display the rules of the game                           *
-  \****************************************************************************/
+/****************************************************************************\
+rules                                                                      
+This function will display the rules of the game                           
+\****************************************************************************/
 void Game::rules()
 {
     
@@ -502,21 +525,21 @@ void Game::rules()
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-  /****************************************************************************\
-  * compMap                                                                    *
-  * This function will compare two pairs and return the result of the smaller  *
-  * of the two                                                                 *
-  \****************************************************************************/
+/****************************************************************************\
+compMap                                                                    
+This function will compare two pairs and return the result of the smaller  
+of the two                                                                 
+\****************************************************************************/
 bool compMap(pair<int,string> a, pair<int,string> b)
 {
     return a.first < b.first;
 }
 
-  /****************************************************************************\
-  * scoreBoard                                                                 *
-  * This function will display the rules of the game                           *
-  \****************************************************************************/
-void Game::scoreBoard()
+/****************************************************************************\
+highScoresBoard                                                                 
+This function will display the top ten shortest and longest games                           
+\****************************************************************************/
+void Game::highScoresBoard()
 {
     cout << string (100, '\n');
     
@@ -552,20 +575,23 @@ void Game::scoreBoard()
         cout << "Name: " << itr->second << endl;
         cout << "Score: " << itr->first << endl << endl;
     }
-
 }
+/****************************************************************************\
+ scoreBoard
+ This function will display the top ten shortest and longest games
+\****************************************************************************/
 
 
-  /****************************************************************************\
-  * playerShuffleIn 
-  * This function is called periodically in the game to check if the player/cpu*
-  * has depleted the cards in their hand in play. If the stack in play is      *
-  * empty the function calls shuffle in (part of the Player class) which       *
-  * shuffles the cards won pile and moves it to the hand in play.              *
-  * Precondition: hand in play state                                           *
-  * Postcondition: if hand in play is not 0 same, otherwise repopulates the    *
-  * hand in play with cards won shuffled.                                      *
-  \****************************************************************************/
+/****************************************************************************\
+playerShuffleIn 
+This function is called periodically in the game to check if the player/cpu
+has depleted the cards in their hand in play. If the stack in play is      
+empty the function calls shuffle in (part of the Player class) which       
+shuffles the cards won pile and moves it to the hand in play.              
+Precondition: hand in play state                                           
+Postcondition: if hand in play is not 0 same, otherwise repopulates the    
+hand in play with cards won shuffled.                                      
+\****************************************************************************/
 void Game::playerShuffleIn(Player &p1, Player &cpu)
 {
     // if player hand is 0 call shuffleIn
@@ -581,15 +607,16 @@ void Game::playerShuffleIn(Player &p1, Player &cpu)
     } 
 }
 
-  /****************************************************************************\
-  * readScoresFromFile                                                         *
-  * This function is called when the user selects the score board option on    *
-  * the main menu. When called it will read the contents from the save file    *
-  * and populate the high scores multimap                                      *
-  \****************************************************************************/
+/****************************************************************************\
+readScoresFromFile                                                         
+This function is called when the user selects the score board option on    
+the main menu. When called it will read the contents from the save file    
+and populate the high scores multimap                                      
+\****************************************************************************/
 void Game::readScoresFromFile()
 {
     ifstream inFile("scoreBoard.txt");
+    sBoard = new ScoreTree();
     
     if(inFile.is_open())
     {
@@ -623,21 +650,24 @@ void Game::readScoresFromFile()
             
             // Populate the map from the files saved scores.
             pair<int, string> tmp = make_pair(curScore, curName);
-            highScores.insert(tmp);        
+            highScores.insert(tmp);    
+
+            sBoard->insert(curScore, curName); 
         }
     }
     else 
     {
         cout << "File is not open." << endl;
     }
+    
     inFile.close();
 }
 
-  /****************************************************************************\
-  * writeScoresFromFile                                                        *
-  * This function is called when a game has ended and a new score needs to be  * 
-  * saved.                                                                     *
-  \****************************************************************************/
+/****************************************************************************\
+writeScoresFromFile                                                        
+This function is called when a game has ended and a new score needs to be   
+saved.                                                                     
+\****************************************************************************/
 void Game::writeScoresToFile()
 {
     ofstream outFile("scoreBoard.txt");
@@ -660,11 +690,23 @@ void Game::writeScoresToFile()
     outFile.close();
 }
 
-  /****************************************************************************\
-  * displayWar                                                                 *
-  * This function will simply display the word war this is used in the welcome *
-  * message and the war game loop.                                             *  
-  \****************************************************************************/
+/****************************************************************************\
+sortTree
+\****************************************************************************/
+/*void Game::printScoreRecords(ScoreTree *root)
+{
+    if (root == NULL)
+        return;
+    printScoreRecords(root->left);
+    cout << root->name << "  " << root->score;
+    printScoreRecords(root->right);
+}*/
+
+/****************************************************************************\
+displayWar                                                                 
+This function will simply display the word war this is used in the welcome 
+message and the war game loop.                                               
+\****************************************************************************/
 void Game::displayWar()
 {
     cout << "\t`7MMF'     A     `7MF' db      `7MM''''Mq.    \n";
@@ -676,10 +718,10 @@ void Game::displayWar()
     cout << "\t      VF      VF .AMA.   .AMMA..JMML. .JMM.   \n\n";
 }
 
-  /****************************************************************************\
-  * displayWelcome                                                             *
-  * This function will simply display the welcome screen and message.          *  
-  \****************************************************************************/
+/****************************************************************************\
+displayWelcome                                                             
+This function will simply display the welcome screen and message.            
+\****************************************************************************/
 void Game::displayWelcome()
 {
     cout << string(50, '\n');
@@ -715,11 +757,11 @@ void Game::displayWelcome()
     this_thread::sleep_for (chrono::seconds(1));
     cout << string(100, '\n');
 }
-  /****************************************************************************\
-  * testCounters                                                               *
-  * This function is called to test the specific number of cards each container*
-  * has. This was used for testing to validate the game loop logic.            *
-  \****************************************************************************/
+/****************************************************************************\
+testCounters                                                               
+This function is called to test the specific number of cards each container
+has. This was used for testing to validate the game loop logic.            
+\****************************************************************************/
 void testCounters(int playCount, Player p1, Player cpu)
 {
         // print play count
@@ -735,7 +777,7 @@ void testCounters(int playCount, Player p1, Player cpu)
         // print the card count in the war queue.
         cout << "WAR queue " << p1.war.size() + cpu.war.size() << endl;
         // add all the cards up and print them.
-        cout << "Total cards in play " << p1.cardsWon.size()+p1.handInPlay.size() + cpu.cardsWon.size()+cpu.handInPlay.size() + p1.war.size() + cpu.war.size() << '\n';
+        cout << "Total cards in play " << p1.cardsWon.size()+p1.handInPlay.size() + cpu.cardsWon.size() + cpu.handInPlay.size() + p1.war.size() + cpu.war.size() << '\n';
         // print the suit, value and ascii art for all card held by player. 
         cout << "Your Cards" << endl;
         p1.printHand();
@@ -743,3 +785,5 @@ void testCounters(int playCount, Player p1, Player cpu)
         cout << "cpu's cards" << endl;
         cpu.printHand();   
 }
+
+ 

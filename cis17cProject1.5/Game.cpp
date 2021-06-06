@@ -117,7 +117,9 @@ void Game::gameLoop()
     do
     {
 
-
+        //p1.printHand();
+        //cpu.printHand();
+        
         countAces(p1);
         // Output the card total for each player.
         cout << "You have " << p1.cardsWon.size()+p1.handInPlay.size() << " cards total\n";

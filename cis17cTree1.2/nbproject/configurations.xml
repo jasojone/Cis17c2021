@@ -4,26 +4,16 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>BloomFilter.h</itemPath>
-      <itemPath>Card.h</itemPath>
-      <itemPath>Deck.h</itemPath>
-      <itemPath>Game.h</itemPath>
-      <itemPath>Player.h</itemPath>
-      <itemPath>ScoreTree.h</itemPath>
+      <itemPath>AVLTree.h</itemPath>
+      <itemPath>BNTnode.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
-      <itemPath>scoreBoard.txt</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>BloomFilter.cpp</itemPath>
-      <itemPath>Deck.cpp</itemPath>
-      <itemPath>Game.cpp</itemPath>
-      <itemPath>Player.cpp</itemPath>
-      <itemPath>ScoreTree.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -48,31 +38,11 @@
       </toolsSet>
       <compileType>
       </compileType>
-      <item path="BloomFilter.cpp" ex="false" tool="0" flavor2="0">
+      <item path="AVLTree.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="BloomFilter.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Card.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Deck.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Deck.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Game.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Game.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Player.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Player.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="ScoreTree.cpp" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="ScoreTree.h" ex="false" tool="3" flavor2="0">
+      <item path="BNTnode.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="scoreBoard.txt" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -95,31 +65,11 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="BloomFilter.cpp" ex="false" tool="0" flavor2="0">
+      <item path="AVLTree.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="BloomFilter.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Card.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Deck.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Deck.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Game.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Game.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Player.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Player.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="ScoreTree.cpp" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="ScoreTree.h" ex="false" tool="3" flavor2="0">
+      <item path="BNTnode.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="scoreBoard.txt" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

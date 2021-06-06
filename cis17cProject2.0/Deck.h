@@ -35,6 +35,8 @@ private:
 public:
     Deck(); // default constructor will create the deck when instantiated. 
     void dealCards(Player &currPlayer); // deals the card 26 per player.
+    void merge(vector<Card> &vec, int l, int m, int r);
+    void mergeSort(vector<Card> &vec, int l, int r);
 };
 #endif /* DECK_H */
 

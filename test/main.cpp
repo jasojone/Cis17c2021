@@ -1,37 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* 
  * File:   main.cpp
- * Author: Jason
- *
- * Created on May 14, 2021, 11:05 PM
+ * Author: Dr. Mark E. Lehr
+ * Created on June 2nd, 2021, 8:11 AM
  */
 
 #include <cstdlib>
-#include <cmath>
+#include <ctime>
 #include <iostream>
-
+#include <cmath>
 using namespace std;
 
-/*
- * 
- */
-int main(int argc, char** argv) {
-    
-    int n = 1;
-    int x = 1;
-    
-    while(n*x <= 1000)
-    {
-        x++;
-        n*=x;
-    }
-    cout << n << " " << x << endl;
+float h(float);
+float g(float);
 
+int main(int argc, char** argv) {
+    //Testing out recursive trig functions
+    float angDeg=45;
+    float angRad=angDeg*atan(1)/45;
+    cout<<"Angle = "<<angDeg<<" sinh = "<<sinh(angRad)<<
+            " our h = "<<h(angRad)<<endl;
+    cout<<"Angle = "<<angDeg<<" cosh = "<<cosh(angRad)<<
+            " our g = "<<g(angRad)<<endl;
+    //Exit stage right
     return 0;
 }
 
+float h(float angR){
+    float tol=1e-6;
+    if(angR>-tol&&angR<tol)return angR+angR*angR*angR/6;
+    return 2*h(angR/2)*g(angR/2);
+}
+float g(float angR){
+    float tol=1e-6;
+    if(angR>-tol&&angR<tol)return 1+angR*angR/2;
+    float b=h(angR/2);
+    return 1+2*b*b;
+}

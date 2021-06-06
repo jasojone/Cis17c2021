@@ -21,6 +21,7 @@ struct Card
 {
     string suit;    // cards suit 
     int cPower;     // power of the card to determine who will win the round
+    Card() {}
     Card(string s, int p)// assign the power and suit when card is created
     {
         suit = s;
