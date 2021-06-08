@@ -4,19 +4,19 @@
  * and open the template in the editor.
  */
 
-/* 
- * File:   main.cpp
- * Author: Jason
- *
- * Created on June 6, 2021, 9:28 PM
- */
+ /*
+  * File:   main.cpp
+  * Author: Jason
+  *
+  * Created on June 6, 2021, 9:28 PM
+  */
 
 #include <cstdlib>
 
 using namespace std;
 
 /*
- * 
+
  */
 int main(int argc, char** argv) {
     
