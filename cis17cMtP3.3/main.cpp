@@ -25,23 +25,28 @@ using namespace chrono;
 //Global Constants
 
 //Execution Begins Here!
+
 int main(int argc, char** argv) {
     const int SIZE = 2;
-    int loopCnt = 1000;
+    int loopCnt = 5000;
     long long operations = 0LL;
     SimpleVector<Object> svl(1);
     time_point<system_clock> start, end;
-    
+
+    Object b(loopCnt);
+    for (int i = 0; i < loopCnt; i++) {
+        svl.push(SIZE);
+    }
+
     start = system_clock::now();
-    for(int i = 1; i <= loopCnt; ++i)
-    {
+    for (int i = 1; i <= loopCnt; ++i) {
         Object o(SIZE);
         operations += svl.push(o);
     }
     duration<float> t = system_clock::now() - start;
-    cout<<"Object Size:     "<<loopCnt<<" Pushed"<<endl;
-    cout<<"Operations:      "<<operations<<endl;
-    cout<<"Time to Push:    "<<t.count()<<" Seconds"<<endl;
+    cout << "Object Size:     " << loopCnt << " Pushed" << endl;
+    cout << "Operations:      " << operations << endl;
+    cout << "Time to Push:    " << t.count() << " Seconds" << endl;
 
     return 0;
 }

@@ -134,18 +134,19 @@ BNTnode *AVLTree<T>::balance(BNTnode *temp){
 //                    Insert the Data into the Sub Trees
 //******************************************************************************
 template <typename T>
-BNTnode *AVLTree<T>::insert(BNTnode *root, int value){
+BNTnode *AVLTree<T>::insert(BNTnode *root, int value, string init){
     if (root == NULL){
         root = new BNTnode;
         root->data = value;
+        root->initials = init;
         root->left = NULL;
         root->right = NULL;
         return root;
     }else if (value < root->data){
-        root->left = insert(root->left, value);
+        root->left = insert(root->left, value, init);
         root = balance (root);
     }else if (value >= root->data){
-        root->right = insert(root->right, value);
+        root->right = insert(root->right, value, init);
         root = balance (root);
     }
     return root;
