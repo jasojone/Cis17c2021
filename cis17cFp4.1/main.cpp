@@ -57,7 +57,7 @@ int main(int argc, char** argv)
     
     //Output operations
     cout<<"Array Size:      "<<SIZE<<endl;
-    cout<<"Loop Count:      "<<loopCnt<<endl;
+    cout<<"Loop Count:      "<<p<<endl;
     cout<<"Operations:      "<<ops / loopCnt<<endl;
     cout<<"Average Time:    "<<t.count() / loopCnt<<" Seconds"<<endl;
     
